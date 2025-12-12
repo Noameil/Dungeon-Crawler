@@ -1,0 +1,29 @@
+// Noam Eilat : 322713025
+
+#include <stdexcept>
+#include "Room.hpp"
+
+Room::Room(std::string name)
+    : name(name), item(nullptr), monster(nullptr), north(nullptr), south(nullptr), east(nullptr), west(nullptr)
+{
+    if (name.empty())
+    {
+        throw std::invalid_argument("Error : Room Name must not be empty");
+    }
+}
+
+Room::~Room()
+{
+    if (this->item)
+        delete this->item;
+    if (this->monster)
+        delete this->monster;
+    if (this->north)
+        delete this->north;
+    if (this->south)
+        delete this->south;
+    if (this->east)
+        delete this->east;
+    if (this->west)
+        delete this->west;
+}
