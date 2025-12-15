@@ -1,39 +1,40 @@
-/*  Noam Eilat : 322713025
-    Amit Lachmann : 207448267   */
+// Noam Eilat : 322713025
+// Amit Lachmann : 207448267
 
 #pragma once
 #include <string>
 
-typedef enum weapons_e
+typedef enum ItemType_e
 {
-    sword,
-    wand,
-    dagger,
-    NA,
-}weapons;
+    SWORD,
+    WAND,
+    DAGGER,
+    SHIELD,
+    POTION,
+} ItemType;
 
 class Item
 {
 private:
-    weapons weaponType;
     std::string name;
+    ItemType itemType;
     int healthBonus;
     int strengthBonus;
     int defenseBonus;
 
 public:
     // Constructors / Destructor
-    Item(std::string name, int healthBonus, int strengthBonus, int defenseBonus);
-    ~Item() {}
+    Item(std::string name, ItemType itemType, int healthBonus, int strengthBonus, int defenseBonus);
+    virtual ~Item() = 0;
 
     // Getters / Setters
-    inline virtual std::string getItemName() const {}
+    inline virtual ItemType getItemType() { return this->itemType; }
+    inline virtual std::string getItemName() const { return this->name; }
     inline virtual void setItemName(std::string newName) {}
-    inline virtual int getItemHealthBonus() const {}
+    inline virtual int getItemHealthBonus() const { return this->healthBonus; }
     inline virtual void setItemHealthBonus(int newHealth) {}
-    inline virtual int getItemStrengthBonus() const {}
+    inline virtual int getItemStrengthBonus() const { return this->strengthBonus; }
     inline virtual void setItemStrengthBonus(int newStrength) {}
-    inline virtual int getItemDefenseBonus() const {}
+    inline virtual int getItemDefenseBonus() const { return this->defenseBonus; }
     inline virtual void setItemDefenseBonus(int newDefense) {}
-    inline virtual weapons getWeaponType() {return this->weaponType;}
 };

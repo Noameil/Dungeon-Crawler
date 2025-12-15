@@ -8,7 +8,8 @@ class Potion : public Item
 {
 private:
 public:
-    Potion(std::string name, int health, int strength, int defense)
-        : Item(name, health, strength, defense) {}
+    Potion(std::string name, int potionHealthBonus, int potionStrengthBonus, int potionDefenseBonus, ItemType itemType = POTION)
+        : Item(name, itemType, potionHealthBonus, potionStrengthBonus, potionDefenseBonus),
+          potionHealthBonus(healthBonus), potionHealthBonus(strengthBonus), potionDefenseBonus(defenseBonus) {}
     ~Potion() {}
 };
