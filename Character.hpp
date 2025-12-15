@@ -1,4 +1,5 @@
-// Noam Eilat : 322713025
+/*  Noam Eilat : 322713025
+    Amit Lachmann : 207448267   */
 #pragma once
 
 #include <string>
@@ -12,27 +13,29 @@ private:
     int health;
     int strength;
     int defense;
+    Item inventory[2];
 
 public:
     // Constructors / Destructor
     Character(std::string name, int health, int strength, int defense);
-    ~Character() {};
+    virtual ~Character() = 0;
 
     // Main Functions
-    void attack(Monster &target);
-    void defend(int damage);
-    bool isAlive() const;
+    virtual void attack(Monster &target);
+    virtual void defend(int damage);
+    virtual bool isAlive() const;
+    virtual bool pickUp(Item item);
 
     // Getters / Setters
-    inline std::string getCharacterName() const {}
-    inline void setCharacterName(std::string newName) {}
-    inline int getCharacterHealth() const {}
-    inline void setCharacterHealth(int newHealth) {}
-    inline int getCharacterStrength() const {}
-    inline void setCharacterStrength(int newStrength) {}
-    inline int getCharacterDefense() const {}
-    inline void setCharacterDefense(int newDefense) {}
+    inline virtual std::string getCharacterName() const {}
+    inline virtual void setCharacterName(std::string newName) {}
+    inline virtual int getCharacterHealth() const {}
+    inline virtual void setCharacterHealth(int newHealth) {}
+    inline virtual int getCharacterStrength() const {}
+    inline virtual void setCharacterStrength(int newStrength) {}
+    inline virtual int getCharacterDefense() const {}
+    inline virtual void setCharacterDefense(int newDefense) {}
 
     // Operators
-    Character operator+(const Item &item);
+    virtual Character operator+(const Item &item);
 };

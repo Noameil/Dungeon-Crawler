@@ -1,5 +1,6 @@
-// Noam Eilat : 322713025
-
+/*  Noam Eilat : 322713025
+    Amit Lachmann : 207448267   */
+    
 #include "Dungeon.hpp"
 
 Dungeon::Dungeon() : startRoom(nullptr)
