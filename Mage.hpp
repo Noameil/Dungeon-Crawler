@@ -11,4 +11,5 @@ public:
     Mage(std::string name, int health, int strength, int defense)
         : Character(name, health, strength, defense) {}
     ~Mage() {}
+    bool pickUp(Item* itemToAdd);
 };
