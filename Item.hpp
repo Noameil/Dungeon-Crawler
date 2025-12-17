@@ -10,7 +10,7 @@ typedef enum ItemType_e
     WAND,
     DAGGER,
     SHIELD,
-    POTION,
+    POTION
 } ItemType;
 
 class Item

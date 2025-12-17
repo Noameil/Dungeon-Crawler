@@ -1,5 +1,5 @@
-/*  Noam Eilat : 322713025
-    Amit Lachmann : 207448267   */
+// Noam Eilat : 322713025
+// Amit Lachmann : 207448267
 
 #pragma once
 #include "Item.hpp"

@@ -4,11 +4,11 @@
 #pragma once
 #include "Item.hpp"
 
-class Sword : public Item
+class Wand : public Item
 {
 private:
 public:
-    Sword(std::string name, ItemType itemType = SWORD, int healthBonus = 0, int strengthBonus = 10, int defenseBonus = 5)
+    Wand(std::string name, ItemType itemType = WAND, int healthBonus = 0, int strengthBonus = 10, int defenseBonus = 0)
         : Item(name, itemType, healthBonus, strengthBonus, defenseBonus) {}
-    ~Sword() {}
+    ~Wand() {}
 };

@@ -1,5 +1,5 @@
-/*  Noam Eilat : 322713025
-    Amit Lachmann : 207448267   */
+// Noam Eilat : 322713025
+// Amit Lachmann : 207448267
 
 #include <stdexcept>
 #include "Item.hpp"
