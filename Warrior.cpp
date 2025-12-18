@@ -18,7 +18,7 @@ bool Warrior::pickUp(Item* itemToAdd)
     ItemType type = itemToAdd->getItemType();
     switch (type)
     {
-    case DAGGER:
+    case SWORD:
         int NewTotalStats = itemToAdd->getItemDefenseBonus() + itemToAdd->getItemHealthBonus() + itemToAdd->getItemStrengthBonus();
         int CurrTotalStats = getTotalWeaponStats();
         if (NewTotalStats>CurrTotalStats)
