@@ -8,7 +8,8 @@ class Warrior : public Character
 {
 private:
 public:
+    Warrior();
     Warrior(std::string name) : Character(name, 100, 15, 10) {}
     ~Warrior() {}
-    virtual bool pickUp(Item item);
+    bool pickUp(Item* itemToAdd);
 };

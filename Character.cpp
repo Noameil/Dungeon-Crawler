@@ -30,9 +30,30 @@ void Character::attack(Monster &target)
     target.setMonsterHealth(target.getMonsterHealth() - (this->strength - target.getMonsterDefense()));
 }
 
-void Character::defend(int damage)
+// void Character::defend(int damage)
+// {
+//     this->health -= (damage - this->defense);
+// }
+
+void Character::swapWeapon(Item* itemToAdd)
 {
-    this->health -= (damage - this->defense);
+    health -= getWeaponBonusHealth();
+    strength -= getWeaponBonusStrength();
+    defense -= getWeaponBonusDefense();
+    insertWeaponToInventory(itemToAdd);
+    health += getWeaponBonusHealth();
+    strength += getWeaponBonusStrength();
+    defense += getWeaponBonusDefense();
+}
+void Character::swapShield(Item* itemToAdd)
+{
+    health -= getShieldBonusHealth();
+    strength -= getShieldBonusStrength();
+    defense -= getShieldBonusDefense();
+    insertShieldToInventory(itemToAdd);
+    health += getShieldBonusHealth();
+    strength += getShieldBonusStrength();
+    defense += getShieldBonusDefense();
 }
 
 bool Character::isAlive() const
@@ -40,9 +61,9 @@ bool Character::isAlive() const
     return this->health > 0 ? true : false;
 }
 
-Character Character::operator+(const Item &item)
-{
-    this->health += item.getItemHealthBonus();
-    this->strength += item.getItemStrengthBonus();
-    this->defense += item.getItemDefenseBonus();
-}
+// Character Character::operator+(const Item &item)
+// {
+//     this->health += item.getItemHealthBonus();
+//     this->strength += item.getItemStrengthBonus();
+//     this->defense += item.getItemDefenseBonus();
+// }

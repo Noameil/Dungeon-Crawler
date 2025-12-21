@@ -11,4 +11,5 @@ public:
     Thief(std::string name, int health, int strength, int defense)
         : Character(name, health, strength, defense) {}
     ~Thief() {}
+    bool pickUp(Item* itemToAdd);
 };
