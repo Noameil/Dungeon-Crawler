@@ -4,6 +4,7 @@
 #include <iostream>
 #include "List.hpp"
 #include "Item.hpp"
+#include "Game.hpp"
 
 int main()
 {

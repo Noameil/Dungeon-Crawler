@@ -65,5 +65,4 @@ void Dungeon::connectRoom(std::string baseName, std::string connectionName, Dire
         throw std::invalid_argument("Error: room doesnt exist in connectRoom");
     }
     matchPairDirections(baseRoom, roomToConnect, whereToConnect);
-    
 }

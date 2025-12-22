@@ -37,7 +37,7 @@ public:
     {
         itemList.insertEnd(item);
     }
-    inline void setMonster(Monster *monster)
+    inline void placeMonster(Monster *monster)
     {
         this->monster = monster;
     }
