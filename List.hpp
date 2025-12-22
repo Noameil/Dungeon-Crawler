@@ -34,13 +34,13 @@ public:
     {
         Node *curr = this->head;
         Node *temp = nullptr;
-        while (curr && curr != this->tail)
+        while (curr)
         {
             temp = curr->next;
             delete curr;
             curr = temp;
         }
-        delete temp;
+        //delete temp;
     }
 
     Node *createNode(T data);
@@ -130,7 +130,7 @@ inline void List<T>::remove(T data)
         {
             delete this->head;
             this->head = nullptr;
-            this->head = this->tail;
+            this->tail = this->head;
         }
     }
     if (this->head->data == data)
