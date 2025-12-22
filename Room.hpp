@@ -6,12 +6,13 @@
 #include <string>
 #include "Item.hpp"
 #include "Monster.hpp"
+#include "List.hpp"
 
 class Room
 {
 private:
     std::string name;
-    Item *item;
+    List<Item*> itemList;
     Monster *monster;
     Room *north;
     Room *south;
@@ -32,9 +33,9 @@ public:
     {
         this->name = newName;
     }
-    inline void setItem(Item *item)
+    inline void placeItem(Item *item)
     {
-        this->item = item;
+        itemList.insertEnd(item);
     }
     inline void setMonster(Monster *monster)
     {

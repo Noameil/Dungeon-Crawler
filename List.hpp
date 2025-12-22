@@ -67,6 +67,15 @@ inline typename List<T>::Node *List<T>::createNode(T data)
 template <class T>
 inline void List<T>::insertEnd(T data)
 {
+    if(!head)
+    {
+        Node* newNode = createNode(data);
+        if (newNode)
+        {
+            head=tail=newNode;
+        }
+        return;   
+    }
     if (!this->tail->data)
     {
         this->tail->data = data;
@@ -84,6 +93,15 @@ inline void List<T>::insertEnd(T data)
 template <class T>
 inline void List<T>::insertStart(T data)
 {
+    if(!head)
+    {
+        Node* newNode = createNode(data);
+        if (newNode)
+        {
+            head=tail=newNode;
+        }
+        return;   
+    }
     if (!this->head->data)
     {
         this->head->data = data;
@@ -101,6 +119,15 @@ inline void List<T>::insertStart(T data)
 template <class T>
 inline void List<T>::insertAfterNode(T currData, T newData)
 {
+    if(!head)
+    {
+        Node* newNode = createNode(newData);
+        if (newNode)
+        {
+            head=tail=newNode;
+        }
+        return;   
+    }
     Node *currNode = search(currData);
     if (!currNode)
         return;
@@ -124,6 +151,10 @@ inline void List<T>::insertAfterNode(T currData, T newData)
 template <class T>
 inline void List<T>::remove(T data)
 {
+    if(!head->data)
+    {
+        return;
+    }
     if (this->head == this->tail)
     {
         if (this->head->data == data)
@@ -131,6 +162,7 @@ inline void List<T>::remove(T data)
             delete this->head;
             this->head = nullptr;
             this->tail = this->head;
+            return;
         }
     }
     if (this->head->data == data)
@@ -139,6 +171,7 @@ inline void List<T>::remove(T data)
         this->head = this->head->next;
         this->head->prev = nullptr;
         delete temp;
+        return;
     }
     if (this->tail->data == data)
     {
@@ -146,6 +179,7 @@ inline void List<T>::remove(T data)
         this->tail = this->tail->prev;
         this->tail->next = nullptr;
         delete temp;
+        return;
     }
     Node *curr = this->head;
     while (curr)
@@ -156,7 +190,7 @@ inline void List<T>::remove(T data)
             curr->prev->next = curr->next;
             temp->next->prev = temp->prev;
             delete temp;
-            break;
+            return;
         }
         curr = curr->next;
     }
@@ -170,6 +204,7 @@ inline typename List<T>::Node *List<T>::search(T data)
     {
         if (curr->data == data)
             return curr;
+        curr = curr->next;
     }
     return nullptr;
 }

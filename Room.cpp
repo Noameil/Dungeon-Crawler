@@ -5,7 +5,7 @@
 #include "Room.hpp"
 
 Room::Room(std::string name)
-    : name(name), item(nullptr), monster(nullptr), north(nullptr), south(nullptr), east(nullptr), west(nullptr)
+    : name(name), monster(nullptr), north(nullptr), south(nullptr), east(nullptr), west(nullptr)
 {
     if (name.empty())
     {
@@ -15,8 +15,8 @@ Room::Room(std::string name)
 
 Room::~Room()
 {
-    if (this->item)
-        delete this->item;
+    if (!itemList.isEmpty())
+        delete &itemList;
     if (this->monster)
         delete this->monster;
     if (this->north)

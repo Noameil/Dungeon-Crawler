@@ -4,14 +4,24 @@
 #pragma once
 
 #include "Room.hpp"
+#include "List.hpp"
 
 #define DUNGEON_SIZE 5
+
+typedef enum Directions_E
+{
+    NORTH,
+    SOUTH,
+    EAST,
+    WEST,
+    ALL_BLUE,
+} Directions;
 
 class Dungeon
 {
 private:
     Room *startRoom;
-    Room **rooms;
+    List<Room*> rooms;
 
 public:
     // Constructors / Destructor
@@ -19,8 +29,10 @@ public:
     ~Dungeon();
 
     // Main Functions
-    void addRoom(Room *room);
+    void createRoom(std::string name);
+    void connectRoom(std::string baseName, std::string connectionName, Directions whereToConnect);
     Room *findRoom(std::string name);
+    void matchPairDirections(Room* baseRoom,Room* roomToConnect,Directions whereToConnect);
 
     // Getters / Setters
     inline Room *getStartRoom() const
