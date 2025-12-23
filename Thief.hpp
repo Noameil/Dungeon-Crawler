@@ -8,8 +8,8 @@ class Thief : public Character
 {
 private:
 public:
-    Thief(std::string name, int health, int strength, int defense)
-        : Character(name, health, strength, defense) {}
+    Thief(std::string name)
+        : Character(name, 60, 20, 7) {}
     ~Thief() {}
     bool pickUp(Item* itemToAdd);
 };

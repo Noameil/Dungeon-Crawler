@@ -3,6 +3,11 @@
 
 #pragma once
 #include <string>
+#include "Sword.hpp"
+#include "Shield.hpp"
+#include "Dagger.hpp"
+#include "Wand.hpp"
+#include "Potion.hpp"
 
 typedef enum ItemType_e
 {
@@ -16,7 +21,6 @@ typedef enum ItemType_e
 class Item
 {
 private:
-    std::string name;
     ItemType itemType;
     int healthBonus;
     int strengthBonus;
@@ -24,17 +28,18 @@ private:
 
 public:
     // Constructors / Destructor
-    Item(std::string name, ItemType itemType, int healthBonus, int strengthBonus, int defenseBonus);
+    Item(int healthBonus, int strengthBonus, int defenseBonus);
     virtual ~Item() = 0;
 
     // Getters / Setters
     inline virtual ItemType getItemType() { return this->itemType; }
-    inline virtual std::string getItemName() const { return this->name; }
-    inline virtual void setItemName(std::string newName) {}
     inline virtual int getItemHealthBonus() const { return this->healthBonus; }
     inline virtual void setItemHealthBonus(int newHealth) {}
+    inline virtual void addItemHealthBonus(int addHealth) {healthBonus += addHealth;}
     inline virtual int getItemStrengthBonus() const { return this->strengthBonus; }
+    inline virtual void addItemStrengthBonus(int addStrength) {strengthBonus += addStrength;}
     inline virtual void setItemStrengthBonus(int newStrength) {}
     inline virtual int getItemDefenseBonus() const { return this->defenseBonus; }
     inline virtual void setItemDefenseBonus(int newDefense) {}
+    inline virtual void addItemDefenseBonus(int addDefense) {defenseBonus += addDefense;}
 };

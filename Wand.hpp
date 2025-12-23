@@ -7,8 +7,9 @@
 class Wand : public Item
 {
 private:
+    ItemType item = WAND;
 public:
-    Wand(std::string name, ItemType itemType = WAND, int healthBonus = 0, int strengthBonus = 10, int defenseBonus = 0)
-        : Item(name, itemType, healthBonus, strengthBonus, defenseBonus) {}
+    Wand(int healthBonus, int strengthBonus, int defenseBonus)
+        : Item(0 + healthBonus, 10 + strengthBonus, 0 + defenseBonus) {}
     ~Wand() {}
 };

@@ -7,8 +7,9 @@
 class Dagger : public Item
 {
 private:
+    ItemType item = DAGGER;
 public:
-    Dagger(std::string name, ItemType itemType = DAGGER, int healthBonus = 0, int strengthBonus = 7, int defenseBonus = 3)
-        : Item(name, itemType, healthBonus, strengthBonus, defenseBonus) {}
+    Dagger(int healthBonus, int strengthBonus, int defenseBonus)
+        : Item(0 + healthBonus, 7 + strengthBonus, 3 + defenseBonus) {}
     ~Dagger() {}
 };

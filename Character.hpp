@@ -5,6 +5,9 @@
 #include <string>
 #include "Monster.hpp"
 #include "Item.hpp"
+#include "Warrior.hpp"
+#include "Thief.hpp"
+#include "Mage.hpp"
 
 class Character
 {
@@ -25,7 +28,7 @@ public:
     virtual void attack(Monster &target);
     // virtual void defend(int damage);
     virtual bool isAlive() const;
-    virtual bool pickUp(Item item) = 0;
+    virtual bool pickUp(Item* item) = 0;
 
     // Getters / Setters
     inline virtual std::string getCharacterName() const {}

@@ -5,6 +5,7 @@
 
 #include "Dungeon.hpp"
 #include "Character.hpp"
+#include "Item.hpp"
 #include "Monster.hpp"
 #include <fstream>
 #include <sstream>
@@ -35,6 +36,9 @@ public:
     void handleMove(std::stringstream &ss);
     void handleFight(std::stringstream &ss);
     void handlePickUp(std::stringstream &ss);
+    void handlePlaceMonster(std::stringstream &ss);
+    void handlePlaceItem(std::string arg2, std::stringstream &ss);
+    void handlePotion(std::string arg2, std::stringstream &ss);
 
     inline Room *getCurrentRoom()
     {

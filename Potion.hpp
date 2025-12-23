@@ -15,35 +15,39 @@ class Potion : public Item
 {
 private:
     PotionType potionType;
-
+    ItemType item = POTION;
 public:
-    Potion(std::string name, PotionType potionType, int healthBonus, int strengthBonus, int defenseBonus, ItemType itemType = POTION)
-        : Item(name, itemType, healthBonus, strengthBonus, defenseBonus)
+    Potion(std::string type,int healthBonus, int strengthBonus, int defenseBonus)
+        : Item(healthBonus, strengthBonus, defenseBonus)
     {
+        if (type == "Strength")
+        {
+            potionType = STRENGTH;
+        }
+        else if (type == "Health")
+        {
+            potionType = HEALTH;
+        }
+        else if (type == "Defense")
+        {
+            potionType = DEFENSE;
+        }
+
         switch (this->potionType)
         {
         case HEALTH:
-            this->setItemHealthBonus(10);
-            this->setItemStrengthBonus(0);
-            this->setItemDefenseBonus(0);
+            this->addItemHealthBonus(10);
             break;
 
         case STRENGTH:
-            this->setItemHealthBonus(0);
-            this->setItemStrengthBonus(5);
-            this->setItemDefenseBonus(0);
+            this->addItemStrengthBonus(5);
             break;
 
         case DEFENSE:
-            this->setItemHealthBonus(0);
-            this->setItemStrengthBonus(0);
-            this->setItemDefenseBonus(5);
+            this->addItemDefenseBonus(5);
             break;
 
         default:
-            this->setItemHealthBonus(0);
-            this->setItemStrengthBonus(0);
-            this->setItemDefenseBonus(0);
             break;
         }
     }
