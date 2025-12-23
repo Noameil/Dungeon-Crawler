@@ -12,7 +12,7 @@ class Room
 {
 private:
     std::string name;
-    List<Item*> itemList;
+    List<Item *> itemList;
     Monster *monster;
     Room *north;
     Room *south;
@@ -37,9 +37,42 @@ public:
     {
         itemList.insertEnd(item);
     }
+    inline List<Item *> getItems()
+    {
+        return this->itemList;
+    }
     inline void placeMonster(Monster *monster)
     {
         this->monster = monster;
+    }
+    inline Monster *getMonster()
+    {
+        return this->monster;
+    }
+    inline Room *getConnectedRoom(Directions direction)
+    {
+        switch (direction)
+        {
+        case NORTH:
+            return north;
+            break;
+
+        case SOUTH:
+            return south;
+            break;
+
+        case EAST:
+            return east;
+            break;
+
+        case WEST:
+            return west;
+            break;
+
+        default:
+            return nullptr;
+            break;
+        }
     }
     inline void connectNorth(Room *room)
     {

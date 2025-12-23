@@ -1,5 +1,5 @@
 // Create the main character with initial stats
-Create Character Thorin 100 15 10
+Create Warrior Thorin
 
 // Define the rooms of the dungeon
 Create Room Entrance
@@ -8,11 +8,6 @@ Create Room TreasureRoom
 
 // Set the starting point of the dungeon exploration
 Set StartRoom Entrance
-
-// Add the created rooms to the dungeon layout
-Add Room Entrance
-Add Room Hallway
-Add Room TreasureRoom
 
 // Establish connections between rooms to enable navigation
 Connect Entrance Hallway North
