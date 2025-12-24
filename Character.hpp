@@ -5,9 +5,8 @@
 #include <string>
 #include "Monster.hpp"
 #include "Item.hpp"
-#include "Warrior.hpp"
-#include "Thief.hpp"
-#include "Mage.hpp"
+
+//class Monster;
 
 class Character
 {
@@ -52,8 +51,12 @@ public:
     inline virtual int getShieldBonusDefense() { return inventory[1]->getItemDefenseBonus(); }
     inline virtual void insertWeaponToInventory(Item *itemToAdd) { inventory[0] = itemToAdd; }
     inline virtual void insertShieldToInventory(Item *itemToAdd) { inventory[1] = itemToAdd; }
-    virtual void swapWeapon(Item *itemToAdd);
-    virtual void swapShield(Item *itemToAdd);
+    inline virtual void swapWeapon(Item *itemToAdd);
+    inline virtual void swapShield(Item *itemToAdd);
+    inline virtual Item* getFirstItem() {return inventory[0];}
+    inline virtual Item* getSecondItem() {return inventory[1];}
+
+
 
     inline virtual void drinkPotion(Item *potion)
     {

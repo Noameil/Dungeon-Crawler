@@ -9,6 +9,14 @@
 #include "Monster.hpp"
 #include <fstream>
 #include <sstream>
+#include "Sword.hpp"
+#include "Shield.hpp"
+#include "Dagger.hpp"
+#include "Wand.hpp"
+#include "Potion.hpp"
+#include "Warrior.hpp"
+#include "Thief.hpp"
+#include "Mage.hpp"
 
 typedef enum FightResult_E
 {

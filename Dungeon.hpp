@@ -8,15 +8,6 @@
 
 #define DUNGEON_SIZE 5
 
-typedef enum Directions_E
-{
-    NORTH,
-    SOUTH,
-    EAST,
-    WEST,
-    ALL_BLUE,
-} Directions;
-
 class Dungeon
 {
 private:

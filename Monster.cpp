@@ -4,6 +4,7 @@
 #include <string>
 #include <stdexcept>
 #include "Monster.hpp"
+#include "Character.hpp"
 
 Monster::Monster(std::string name, int health, int strength, int defense)
     : name(name), health(health), strength(strength), defense(defense)

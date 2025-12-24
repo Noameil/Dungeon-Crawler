@@ -8,6 +8,15 @@
 #include "Monster.hpp"
 #include "List.hpp"
 
+typedef enum Directions_E
+{
+    NORTH,
+    SOUTH,
+    EAST,
+    WEST,
+    ALL_BLUE,
+} Directions;
+
 class Room
 {
 private:

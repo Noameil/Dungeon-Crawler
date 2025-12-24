@@ -13,34 +13,40 @@
 //     setCharacterStrength(15);
 // }
 
-bool Warrior::pickUp(Item* itemToAdd)
+bool Warrior::pickUp(Item *itemToAdd)
 {
     ItemType type = itemToAdd->getItemType();
     switch (type)
     {
     case SWORD:
+    {
         int NewTotalStats = itemToAdd->getItemDefenseBonus() + itemToAdd->getItemHealthBonus() + itemToAdd->getItemStrengthBonus();
         int CurrTotalStats = getTotalWeaponStats();
-        if (NewTotalStats>CurrTotalStats)
+        if (NewTotalStats > CurrTotalStats)
         {
             Character::swapWeapon(itemToAdd);
         }
-        return true; 
+        return true;
         break;
+    }
     case SHIELD:
+    {
         int NewTotalStats = itemToAdd->getItemDefenseBonus() + itemToAdd->getItemHealthBonus() + itemToAdd->getItemStrengthBonus();
         int CurrTotalStats = getTotalShieldStats();
-        if (NewTotalStats>CurrTotalStats)
+        if (NewTotalStats > CurrTotalStats)
         {
             Character::swapShield(itemToAdd);
         }
-        return true; 
+        return true;
         break;
+    }
     case POTION:
+    {
         Character::drinkPotion(itemToAdd);
         return true;
         break;
-        
+    }
+
     default:
         return false;
         break;

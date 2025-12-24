@@ -80,7 +80,32 @@ void Game::executeCommands()
 
 void Game::outputFinalState(std::string fileOutputName)
 {
-    
+    ofstream outputFile(fileOutputName);
+    if (!outputFile.is_open())
+    {
+        throw runtime_error("Error : Couldn't output to the file");
+    }
+    int health = player->getCharacterHealth();
+    Item* item1 = player->getFirstItem();
+    Item* item2 = player->getSecondItem();
+    outputFile << player->getCharacterName() << "final stats: Health " << player->getCharacterHealth() << " Strength: " << player->getCharacterStrength() << " Defense: " << player->getCharacterDefense() << endl;
+    if (item1 && item2)
+    {
+        outputFile <<  item1->getName() << ": " << item1->getItemHealthBonus() << "/" << item1->getItemStrengthBonus() << "/" << item1->getItemDefenseBonus() << endl;
+        outputFile <<  item2->getName() << ": " << item2->getItemHealthBonus() << "/" << item2->getItemStrengthBonus() << "/" << item2->getItemDefenseBonus() << endl;
+    }
+    else if (item1)
+    {
+        outputFile << item1->getName() << ": " << item1->getItemHealthBonus() << "/" << item1->getItemStrengthBonus() << "/" << item1->getItemDefenseBonus() << endl;
+    }
+    else if (item2)
+    {
+        outputFile << item2->getName() << ": " << item2->getItemHealthBonus() << "/" << item2->getItemStrengthBonus() << "/" << item2->getItemDefenseBonus() << endl;
+    }
+    else
+    {
+        outputFile << player->getCharacterName() << " had no items (and still won eze gever nishba)!" << endl;
+    }
 }
 
 FightResult Game::fight(Monster &foulBeing)
