@@ -28,3 +28,17 @@ Room::~Room()
     if (this->west)
         delete this->west;
 }
+
+Item *Room::findItem(ItemType itemToFind)
+{
+    List<Item *>::Node *temp = itemList.head;
+    while (temp)
+    {
+        if (temp->data->getItemType() == itemToFind)
+        { 
+            return temp->data;
+        }
+        temp = temp->next;
+    }
+    return nullptr;
+}

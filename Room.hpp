@@ -24,6 +24,8 @@ public:
     Room(std::string name);
     ~Room();
 
+    Item *findItem(ItemType itemToFind);
+
     // Getters / Setters
     inline std::string getName() const
     {

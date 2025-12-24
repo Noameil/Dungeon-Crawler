@@ -10,6 +10,12 @@
 #include <fstream>
 #include <sstream>
 
+typedef enum FightResult_E
+{
+    VICTORY,
+    LOSE,
+} FightResult;
+
 class Game
 {
 private:
@@ -26,7 +32,7 @@ public:
     void loadFromFile(std::string fileName);
     void executeCommands();
     void outputFinalState(std::string fileOutputName);
-    void fight(Monster &foulBeing);
+    FightResult fight(Monster &foulBeing);
 
     void handleCreate(std::stringstream &ss);
     void handleSet(std::stringstream &ss);

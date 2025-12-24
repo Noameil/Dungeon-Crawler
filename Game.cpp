@@ -78,7 +78,12 @@ void Game::executeCommands()
     }
 }
 
-void Game::fight(Monster &foulBeing)
+void Game::outputFinalState(std::string fileOutputName)
+{
+    
+}
+
+FightResult Game::fight(Monster &foulBeing)
 {
     while (player->getCharacterHealth() > 0 && foulBeing.getMonsterHealth() > 0)
     {
@@ -87,7 +92,12 @@ void Game::fight(Monster &foulBeing)
         {
             foulBeing.attack(*player);
         }
+        else
+        {
+            return VICTORY;
+        }
     }
+    return LOSE;
 }
 
 void Game::handleCreate(stringstream &ss)
@@ -181,18 +191,195 @@ void Game::handlePlace(stringstream &ss)
 
 void Game::handleEnter(stringstream &ss)
 {
+    string arg2, arg3;
+    ss >> arg2;
+    ss >> arg3;
+    if (arg2 != "Dungeon")
+    {
+        throw invalid_argument("Error : Not a valid location to enter");
+    }
+    if (arg3 != player->getCharacterName())
+    {
+        throw invalid_argument("Error : This player does not exist");
+    }
+    currentRoom = dungeon.getStartRoom();
 }
 
 void Game::handleMove(stringstream &ss)
 {
+    string arg2, arg3;
+    ss >> arg2;
+    ss >> arg3;
+    if (arg2 != player->getCharacterName())
+    {
+        throw invalid_argument("Error : Invalid player to move");
+    }
+    Directions whereToMove;
+    if (arg3 == "North")
+    {
+        whereToMove = NORTH;
+    }
+    else if (arg3 == "South")
+    {
+        whereToMove = SOUTH;
+    }
+    else if (arg3 == "East")
+    {
+        whereToMove = EAST;
+    }
+    else if (arg3 == "West")
+    {
+        whereToMove = WEST;
+    }
+    else
+    {
+        throw invalid_argument("Error : Invalid direction");
+    }
+    if (currentRoom->getConnectedRoom(whereToMove))
+    {
+        currentRoom = currentRoom->getConnectedRoom(whereToMove);
+    }
+    else
+    {
+        throw invalid_argument("Error : No room connected in this direction");
+    }
 }
 
 void Game::handleFight(stringstream &ss)
 {
+    string arg2, arg3;
+    ss >> arg2;
+    ss >> arg3;
+    if (arg2 != player->getCharacterName())
+    {
+        throw invalid_argument("Error : Invalid player for the fight");
+    }
+    if (arg3 != (currentRoom->getMonster())->getMonsterName())
+    {
+        throw invalid_argument("Error : Invalid monster for the fight");
+    }
+    FightResult result = fight(*currentRoom->getMonster());
 }
 
 void Game::handlePickUp(stringstream &ss)
 {
+    string arg2, arg3;
+    ss >> arg2;
+    ss >> arg3;
+    if (arg2 != player->getCharacterName())
+    {
+        throw invalid_argument("Error : Invalid player to pick up item");
+    }
+    if (arg3 == "Sword")
+    {
+        Item* itemToPickUp = currentRoom->findItem(SWORD);
+        if (itemToPickUp)
+        {
+            player->pickUp(itemToPickUp);
+        }
+        else
+        {
+            throw invalid_argument("Error : No sword in the room");
+        }
+    }
+    else if (arg3 == "Shield")
+    {
+        Item* itemToPickUp = currentRoom->findItem(SHIELD);
+        if (itemToPickUp)
+        {
+            player->pickUp(itemToPickUp);
+        }
+        else
+        {
+            throw invalid_argument("Error : No shield in the room");
+        }
+    }
+    else if (arg3 == "Dagger")
+    {
+        Item* itemToPickUp = currentRoom->findItem(DAGGER);
+        if (itemToPickUp)
+        {
+            player->pickUp(itemToPickUp);
+        }
+        else
+        {
+            throw invalid_argument("Error : No dagger in the room");
+        }
+    }
+    else if (arg3 == "Wand")
+    {
+        Item* itemToPickUp = currentRoom->findItem(WAND);
+        if (itemToPickUp)
+        {
+            player->pickUp(itemToPickUp);
+        }
+        else
+        {
+            throw invalid_argument("Error : No wand in the room");
+        }
+    }
+    else if (arg3 == "Health" || arg3 == "Strength" || arg3 == "Defense")
+    {
+        if (arg3 == "Health")
+        {
+            Item* itemToPickUp = currentRoom->findItem(POTION);
+            if (!itemToPickUp)
+            {
+                throw invalid_argument("Error : No potion in the room");
+            }
+            else
+            {
+                Potion* temp = dynamic_cast <Potion*> (itemToPickUp);
+                if (temp->getPotionType() != HEALTHP)
+                {
+                    throw invalid_argument("Error : No such potion in the room");
+                }
+                player->drinkPotion(itemToPickUp);
+            }
+        }
+        else if (arg3 == "Strength")
+        {
+            Item* itemToPickUp = currentRoom->findItem(POTION);
+            if (!itemToPickUp)
+            {
+                throw invalid_argument("Error : No potion in the room");
+            }
+            else
+            {
+                Potion* temp = dynamic_cast <Potion*> (itemToPickUp);
+                if (temp->getPotionType() != STRENGTHP)
+                {
+                    throw invalid_argument("Error : No such potion in the room");
+                }
+                player->drinkPotion(itemToPickUp);
+            }
+        }
+        else if (arg3 == "Defense")
+        {
+            Item* itemToPickUp = currentRoom->findItem(POTION);
+            if (!itemToPickUp)
+            {
+                throw invalid_argument("Error : No potion in the room");
+            }
+            else
+            {
+                Potion* temp = dynamic_cast <Potion*> (itemToPickUp);
+                if (temp->getPotionType() != DEFENSEP)
+                {
+                    throw invalid_argument("Error : No such potion in the room");
+                }
+                player->drinkPotion(itemToPickUp);
+            }
+        }
+        else
+        {
+            throw invalid_argument("Error : Invalid potion type");
+        }
+    }
+    else
+    {
+        throw invalid_argument("Error : Invalid item to pick up");
+    }
 }
 
 void Game::handlePlaceMonster(stringstream &ss)

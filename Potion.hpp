@@ -6,9 +6,9 @@
 
 typedef enum PotionType_e
 {
-    HEALTH,
-    STRENGTH,
-    DEFENSE
+    HEALTHP,
+    STRENGTHP,
+    DEFENSEP,
 } PotionType;
 
 class Potion : public Item
@@ -22,28 +22,28 @@ public:
     {
         if (type == "Strength")
         {
-            potionType = STRENGTH;
+            potionType = STRENGTHP;
         }
         else if (type == "Health")
         {
-            potionType = HEALTH;
+            potionType = HEALTHP;
         }
         else if (type == "Defense")
         {
-            potionType = DEFENSE;
+            potionType = DEFENSEP;
         }
 
         switch (this->potionType)
         {
-        case HEALTH:
+        case HEALTHP:
             this->addItemHealthBonus(10);
             break;
 
-        case STRENGTH:
+        case STRENGTHP:
             this->addItemStrengthBonus(5);
             break;
 
-        case DEFENSE:
+        case DEFENSEP:
             this->addItemDefenseBonus(5);
             break;
 
@@ -52,4 +52,9 @@ public:
         }
     }
     ~Potion() {}
+
+    inline PotionType getPotionType()
+    {
+        return potionType;
+    }
 };
