@@ -16,10 +16,14 @@ class Potion : public Item
 private:
     PotionType potionType;
     ItemType item = POTION;
+    std::string name;
+
 public:
-    Potion(std::string type,int healthBonus, int strengthBonus, int defenseBonus)
-        : Item(healthBonus, strengthBonus, defenseBonus)
+    Potion(std::string type, int healthBonus, int strengthBonus, int defenseBonus)
+        : Item(POTION, healthBonus, strengthBonus, defenseBonus)
     {
+        name = type + " Potion";
+
         if (type == "Strength")
         {
             potionType = STRENGTHP;
@@ -57,4 +61,5 @@ public:
     {
         return potionType;
     }
+    inline std::string getName() { return name; }
 };

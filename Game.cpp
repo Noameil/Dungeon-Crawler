@@ -28,7 +28,7 @@ void Game::loadFromFile(string fileName)
 
 void Game::executeCommands()
 {
-    string line, arg;
+    string line;
     size_t posStart;
     size_t posEnd;
 
@@ -38,14 +38,26 @@ void Game::executeCommands()
             continue;
 
         stringstream streamString(line);
+        cout << streamString.str() << endl;
+        string arg;
         streamString >> arg;
+        cout << arg << endl;
+        if (arg == "" || arg == " ")
+            continue;
         if (arg == "Create")
         {
             handleCreate(streamString);
         }
         else if (arg == "Set")
         {
-            handleSet(streamString);
+            try
+            {
+                handleSet(streamString);
+            }
+            catch (exception &e)
+            {
+                e.what();
+            }
         }
         else if (arg == "Connect")
         {
@@ -69,12 +81,22 @@ void Game::executeCommands()
         }
         else if (arg == "PickUp")
         {
-            handlePickUp(streamString);
+            try
+            {
+                handlePickUp(streamString);
+            }
+            catch (exception &e)
+            {
+                cout << e.what() << endl;
+                continue;
+            }
         }
         else
         {
             throw invalid_argument("Error : Invalid input from file");
         }
+        streamString.str("");
+        streamString.clear();
     }
 }
 
@@ -86,13 +108,13 @@ void Game::outputFinalState(std::string fileOutputName)
         throw runtime_error("Error : Couldn't output to the file");
     }
     int health = player->getCharacterHealth();
-    Item* item1 = player->getFirstItem();
-    Item* item2 = player->getSecondItem();
+    Item *item1 = player->getFirstItem();
+    Item *item2 = player->getSecondItem();
     outputFile << player->getCharacterName() << "final stats: Health " << player->getCharacterHealth() << " Strength: " << player->getCharacterStrength() << " Defense: " << player->getCharacterDefense() << endl;
     if (item1 && item2)
     {
-        outputFile <<  item1->getName() << ": " << item1->getItemHealthBonus() << "/" << item1->getItemStrengthBonus() << "/" << item1->getItemDefenseBonus() << endl;
-        outputFile <<  item2->getName() << ": " << item2->getItemHealthBonus() << "/" << item2->getItemStrengthBonus() << "/" << item2->getItemDefenseBonus() << endl;
+        outputFile << item1->getName() << ": " << item1->getItemHealthBonus() << "/" << item1->getItemStrengthBonus() << "/" << item1->getItemDefenseBonus() << endl;
+        outputFile << item2->getName() << ": " << item2->getItemHealthBonus() << "/" << item2->getItemStrengthBonus() << "/" << item2->getItemDefenseBonus() << endl;
     }
     else if (item1)
     {
@@ -136,18 +158,18 @@ void Game::handleCreate(stringstream &ss)
     }
     else if (arg2 == "Warrior")
     {
-        Warrior PC(arg3);
-        player = &PC;
+        Warrior *PC = new Warrior(arg3);
+        player = PC;
     }
     else if (arg2 == "Thief")
     {
-        Thief PC(arg3);
-        player = &PC;
+        Thief *PC = new Thief(arg3);
+        player = PC;
     }
     else if (arg2 == "Mage")
     {
-        Mage PC(arg3);
-        player = &PC;
+        Mage *PC = new Mage(arg3);
+        player = PC;
     }
 }
 
@@ -159,10 +181,11 @@ void Game::handleSet(stringstream &ss)
     Room *tempStart = dungeon.findRoom(arg3);
     if (!tempStart)
     {
-        throw std::invalid_argument("Error : start room was not found");
+        throw std::invalid_argument("Error : start room was not found in function handleSet");
     }
     else
     {
+        cout << "Inside else " << tempStart->getName() << endl;
         dungeon.setStartRoom(tempStart);
     }
 }
@@ -173,29 +196,41 @@ void Game::handleConnect(stringstream &ss)
     ss >> arg2;
     ss >> arg3;
     ss >> arg4;
+    cout << "handleConnect" << arg2 << arg3 << arg4 << endl;
     Directions direction = ALL_BLUE;
     if (arg4 == "North")
     {
+        cout << "Entered if for North" << endl;
         direction = NORTH;
+        cout << direction << endl;
     }
     else if (arg4 == "South")
     {
+        cout << "Entered if for South" << endl;
         direction = SOUTH;
+        cout << direction << endl;
     }
     else if (arg4 == "East")
     {
+        cout << "Entered if for East" << endl;
         direction = EAST;
+        cout << direction << endl;
     }
     else if (arg4 == "West")
     {
+        cout << "Entered if for West" << endl;
         direction = WEST;
+        cout << direction << endl;
     }
     if (direction == ALL_BLUE)
     {
-        throw std::invalid_argument("Error : invalid direction");
+        cout << "Entered if for all blue" << endl;
+        cout << direction << endl;
+        throw std::invalid_argument("Error : invalid direction from handleConnect");
     }
     else
     {
+        cout << "Trying to connect rooms" << endl;
         dungeon.connectRoom(arg2, arg3, direction);
     }
 }
@@ -219,6 +254,9 @@ void Game::handleEnter(stringstream &ss)
     string arg2, arg3;
     ss >> arg2;
     ss >> arg3;
+    cout << dungeon.getStartRoom()->getName() << endl;
+    cout << arg2 << endl;
+    cout << arg3 << endl;
     if (arg2 != "Dungeon")
     {
         throw invalid_argument("Error : Not a valid location to enter");
@@ -227,6 +265,8 @@ void Game::handleEnter(stringstream &ss)
     {
         throw invalid_argument("Error : This player does not exist");
     }
+
+    cout << "Finished handleEnter" << endl;
     currentRoom = dungeon.getStartRoom();
 }
 
@@ -258,7 +298,7 @@ void Game::handleMove(stringstream &ss)
     }
     else
     {
-        throw invalid_argument("Error : Invalid direction");
+        throw invalid_argument("Error : Invalid direction from handleMove");
     }
     if (currentRoom->getConnectedRoom(whereToMove))
     {
@@ -266,6 +306,7 @@ void Game::handleMove(stringstream &ss)
     }
     else
     {
+        cout << whereToMove << endl;
         throw invalid_argument("Error : No room connected in this direction");
     }
 }
@@ -291,15 +332,17 @@ void Game::handlePickUp(stringstream &ss)
     string arg2, arg3;
     ss >> arg2;
     ss >> arg3;
+    cout << "Start of handlePickup" << arg2 << arg3 << endl;
     if (arg2 != player->getCharacterName())
     {
         throw invalid_argument("Error : Invalid player to pick up item");
     }
     if (arg3 == "Sword")
     {
-        Item* itemToPickUp = currentRoom->findItem(SWORD);
+        Item *itemToPickUp = currentRoom->findItem(SWORD);
         if (itemToPickUp)
         {
+            cout << "Trying to pick up item" << endl;
             player->pickUp(itemToPickUp);
         }
         else
@@ -309,7 +352,7 @@ void Game::handlePickUp(stringstream &ss)
     }
     else if (arg3 == "Shield")
     {
-        Item* itemToPickUp = currentRoom->findItem(SHIELD);
+        Item *itemToPickUp = currentRoom->findItem(SHIELD);
         if (itemToPickUp)
         {
             player->pickUp(itemToPickUp);
@@ -321,7 +364,7 @@ void Game::handlePickUp(stringstream &ss)
     }
     else if (arg3 == "Dagger")
     {
-        Item* itemToPickUp = currentRoom->findItem(DAGGER);
+        Item *itemToPickUp = currentRoom->findItem(DAGGER);
         if (itemToPickUp)
         {
             player->pickUp(itemToPickUp);
@@ -333,7 +376,7 @@ void Game::handlePickUp(stringstream &ss)
     }
     else if (arg3 == "Wand")
     {
-        Item* itemToPickUp = currentRoom->findItem(WAND);
+        Item *itemToPickUp = currentRoom->findItem(WAND);
         if (itemToPickUp)
         {
             player->pickUp(itemToPickUp);
@@ -347,14 +390,14 @@ void Game::handlePickUp(stringstream &ss)
     {
         if (arg3 == "Health")
         {
-            Item* itemToPickUp = currentRoom->findItem(POTION);
+            Item *itemToPickUp = currentRoom->findItem(POTION);
             if (!itemToPickUp)
             {
                 throw invalid_argument("Error : No potion in the room");
             }
             else
             {
-                Potion* temp = dynamic_cast <Potion*> (itemToPickUp);
+                Potion *temp = dynamic_cast<Potion *>(itemToPickUp);
                 if (temp->getPotionType() != HEALTHP)
                 {
                     throw invalid_argument("Error : No such potion in the room");
@@ -364,14 +407,14 @@ void Game::handlePickUp(stringstream &ss)
         }
         else if (arg3 == "Strength")
         {
-            Item* itemToPickUp = currentRoom->findItem(POTION);
+            Item *itemToPickUp = currentRoom->findItem(POTION);
             if (!itemToPickUp)
             {
                 throw invalid_argument("Error : No potion in the room");
             }
             else
             {
-                Potion* temp = dynamic_cast <Potion*> (itemToPickUp);
+                Potion *temp = dynamic_cast<Potion *>(itemToPickUp);
                 if (temp->getPotionType() != STRENGTHP)
                 {
                     throw invalid_argument("Error : No such potion in the room");
@@ -381,14 +424,14 @@ void Game::handlePickUp(stringstream &ss)
         }
         else if (arg3 == "Defense")
         {
-            Item* itemToPickUp = currentRoom->findItem(POTION);
+            Item *itemToPickUp = currentRoom->findItem(POTION);
             if (!itemToPickUp)
             {
                 throw invalid_argument("Error : No potion in the room");
             }
             else
             {
-                Potion* temp = dynamic_cast <Potion*> (itemToPickUp);
+                Potion *temp = dynamic_cast<Potion *>(itemToPickUp);
                 if (temp->getPotionType() != DEFENSEP)
                 {
                     throw invalid_argument("Error : No such potion in the room");
@@ -436,6 +479,9 @@ void Game::handlePlaceMonster(stringstream &ss)
 
 void Game::handlePlaceItem(string arg2, stringstream &ss)
 {
+
+    cout << ss.str() << endl;
+    cout << arg2 << endl;
     string arg3;
     int arg4, arg5, arg6;
     if (arg2 == "Sword")
@@ -451,6 +497,7 @@ void Game::handlePlaceItem(string arg2, stringstream &ss)
         }
         Sword *swordToAdd = new Sword(arg4, arg5, arg6);
         roomToPlace->placeItem(swordToAdd);
+        cout << roomToPlace->findItem(SWORD)->getName() << endl;
     }
     else if (arg2 == "Shield")
     {
@@ -513,6 +560,6 @@ void Game::handlePlaceItem(string arg2, stringstream &ss)
     }
     else
     {
-        throw invalid_argument("Error : Trying to place an invalid argument");
+        throw invalid_argument("Error : Trying to place an invalid argument from handlePlaceItem");
     }
 }

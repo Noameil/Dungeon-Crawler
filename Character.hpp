@@ -6,7 +6,7 @@
 #include "Monster.hpp"
 #include "Item.hpp"
 
-//class Monster;
+// class Monster;
 
 class Character
 {
@@ -27,10 +27,10 @@ public:
     virtual void attack(Monster &target);
     // virtual void defend(int damage);
     virtual bool isAlive() const;
-    virtual bool pickUp(Item* item) = 0;
+    virtual bool pickUp(Item *item) = 0;
 
     // Getters / Setters
-    inline virtual std::string getCharacterName() const {}
+    inline virtual std::string getCharacterName() const { return name; }
     // inline virtual void setCharacterName(std::string newName) {}
     inline virtual int getCharacterHealth() const { return health; }
     inline virtual void setCharacterHealth(int newHealth) { health = newHealth; }
@@ -53,10 +53,8 @@ public:
     inline virtual void insertShieldToInventory(Item *itemToAdd) { inventory[1] = itemToAdd; }
     inline virtual void swapWeapon(Item *itemToAdd);
     inline virtual void swapShield(Item *itemToAdd);
-    inline virtual Item* getFirstItem() {return inventory[0];}
-    inline virtual Item* getSecondItem() {return inventory[1];}
-
-
+    inline virtual Item *getFirstItem() { return inventory[0]; }
+    inline virtual Item *getSecondItem() { return inventory[1]; }
 
     inline virtual void drinkPotion(Item *potion)
     {

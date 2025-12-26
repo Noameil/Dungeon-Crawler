@@ -22,7 +22,7 @@ public:
     {
         try
         {
-            this->head = createNode(nullptr);
+            this->head = nullptr;
             this->tail = this->head;
         }
         catch (const std::exception &e)
@@ -40,7 +40,7 @@ public:
             delete curr;
             curr = temp;
         }
-        //delete temp;
+        // delete temp;
     }
 
     Node *createNode(T data);
@@ -67,14 +67,14 @@ inline typename List<T>::Node *List<T>::createNode(T data)
 template <class T>
 inline void List<T>::insertEnd(T data)
 {
-    if(!head)
+    if (!head)
     {
-        Node* newNode = createNode(data);
+        Node *newNode = createNode(data);
         if (newNode)
         {
-            head=tail=newNode;
+            head = tail = newNode;
         }
-        return;   
+        return;
     }
     if (!this->tail->data)
     {
@@ -93,14 +93,14 @@ inline void List<T>::insertEnd(T data)
 template <class T>
 inline void List<T>::insertStart(T data)
 {
-    if(!head)
+    if (!head)
     {
-        Node* newNode = createNode(data);
+        Node *newNode = createNode(data);
         if (newNode)
         {
-            head=tail=newNode;
+            head = tail = newNode;
         }
-        return;   
+        return;
     }
     if (!this->head->data)
     {
@@ -119,14 +119,14 @@ inline void List<T>::insertStart(T data)
 template <class T>
 inline void List<T>::insertAfterNode(T currData, T newData)
 {
-    if(!head)
+    if (!head)
     {
-        Node* newNode = createNode(newData);
+        Node *newNode = createNode(newData);
         if (newNode)
         {
-            head=tail=newNode;
+            head = tail = newNode;
         }
-        return;   
+        return;
     }
     Node *currNode = search(currData);
     if (!currNode)
@@ -151,7 +151,7 @@ inline void List<T>::insertAfterNode(T currData, T newData)
 template <class T>
 inline void List<T>::remove(T data)
 {
-    if(!head->data)
+    if (!head->data)
     {
         return;
     }

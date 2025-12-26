@@ -10,7 +10,7 @@ int main()
 {
 
     Game game;
-    game.loadFromFile("input.txt");
+    game.loadFromFile("Input.txt");
 
     // Run game logic based on loaded commands
     game.executeCommands();

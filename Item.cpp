@@ -4,6 +4,8 @@
 #include <stdexcept>
 #include "Item.hpp"
 
-Item::Item(int healthBonus, int strengthBonus, int defenseBonus)
+Item::Item(ItemType type, int health, int strength, int defense)
+    : itemType(type), healthBonus(health), strengthBonus(strength), defenseBonus(defense)
 {
 }
+Item::~Item() {}

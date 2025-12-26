@@ -25,17 +25,14 @@ Character::Character(std::string name, int health, int strength, int defense)
     }
 }
 
+Character::~Character() {}
+
 void Character::attack(Monster &target)
 {
     target.setMonsterHealth(target.getMonsterHealth() - (this->strength - target.getMonsterDefense()));
 }
 
-// void Character::defend(int damage)
-// {
-//     this->health -= (damage - this->defense);
-// }
-
-void Character::swapWeapon(Item* itemToAdd)
+void Character::swapWeapon(Item *itemToAdd)
 {
     health -= getWeaponBonusHealth();
     strength -= getWeaponBonusStrength();
@@ -45,7 +42,7 @@ void Character::swapWeapon(Item* itemToAdd)
     strength += getWeaponBonusStrength();
     defense += getWeaponBonusDefense();
 }
-void Character::swapShield(Item* itemToAdd)
+void Character::swapShield(Item *itemToAdd)
 {
     health -= getShieldBonusHealth();
     strength -= getShieldBonusStrength();
@@ -60,10 +57,3 @@ bool Character::isAlive() const
 {
     return this->health > 0 ? true : false;
 }
-
-// Character Character::operator+(const Item &item)
-// {
-//     this->health += item.getItemHealthBonus();
-//     this->strength += item.getItemStrengthBonus();
-//     this->defense += item.getItemDefenseBonus();
-// }

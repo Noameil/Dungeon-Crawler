@@ -31,14 +31,24 @@ Room::~Room()
 
 Item *Room::findItem(ItemType itemToFind)
 {
+    std::cout << "Trying ro find Item findItem" << itemToFind << std::endl;
     List<Item *>::Node *temp = itemList.head;
     while (temp)
     {
-        if (temp->data->getItemType() == itemToFind)
-        { 
-            return temp->data;
+        if (temp->data)
+        {
+            std::cout << temp->data->getItemType() << std::endl;
+            if (temp->data->getItemType() == itemToFind)
+            {
+                return temp->data;
+            }
+        }
+        else
+        {
+            std::cout << "temp->data is null" << std::endl;
         }
         temp = temp->next;
     }
+    std::cout << "got to null?????" << std::endl;
     return nullptr;
 }

@@ -15,6 +15,10 @@
 
 bool Warrior::pickUp(Item *itemToAdd)
 {
+    if (!itemToAdd)
+    {
+        throw std::invalid_argument("Error : null item in pickUp Warrior");
+    }
     ItemType type = itemToAdd->getItemType();
     switch (type)
     {

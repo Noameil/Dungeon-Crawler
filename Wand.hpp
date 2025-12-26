@@ -9,9 +9,10 @@ class Wand : public Item
 private:
     ItemType item = WAND;
     std::string name = "Wand";
+
 public:
     Wand(int healthBonus, int strengthBonus, int defenseBonus)
-        : Item(0 + healthBonus, 10 + strengthBonus, 0 + defenseBonus) {}
+        : Item(WAND, 0 + healthBonus, 10 + strengthBonus, 0 + defenseBonus) {}
     ~Wand() {}
-    inline std::string getName() {return name;}
+    inline std::string getName() { return name; }
 };
