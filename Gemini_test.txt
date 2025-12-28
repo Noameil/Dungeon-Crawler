@@ -1,0 +1,133 @@
+// ==========================================
+// 1. SETUP & ERROR HANDLING
+// ==========================================
+
+// Edge Case: Define Characters
+Create Warrior Conan
+Create Mage Merlin
+Create Thief Garrett
+
+// Edge Case: Define Rooms
+Create Room Start
+Create Room Armory
+Create Room Library
+Create Room BossLair
+Create Room Void
+
+// Edge Case: Premature Entry
+// According to PDF Sec 6: Calling Enter Dungeon before setting a start room results in an error 
+Enter Dungeon Conan
+
+// Happy Path: Set Start and Enter
+Set StartRoom Start
+Enter Dungeon Conan
+Enter Dungeon Merlin
+Enter Dungeon Garrett
+
+// ==========================================
+// 2. ROOM CONNECTIONS & MOVEMENT
+// ==========================================
+
+// Setup Map:
+// Start (North) -> Armory
+// Start (East)  -> Library
+// Armory (North) -> BossLair
+Connect Start Armory North
+Connect Start Library East
+Connect Armory BossLair North
+
+// Edge Case: Invalid Move
+// Start has no South connection. Should print error and continue[cite: 57].
+Move Conan South
+
+// Happy Path: Valid Move
+Move Conan North
+// Conan is now in Armory
+Move Conan South
+// Conan is back in Start (Bi-directional check)
+
+// ==========================================
+// 3. ITEMS & CLASS RESTRICTIONS [cite: 30-33]
+// ==========================================
+
+// Setup Items in Start Room
+Place Wand Start 0 10 0
+Place Dagger Start 0 10 0
+Place Sword Start 0 10 0
+
+// Edge Case: Class Restrictions
+// Warrior (Conan) tries to pick up Wand (Mage only) -> Should Fail
+PickUp Conan Wand
+
+// Mage (Merlin) tries to pick up Sword (Warrior only) -> Should Fail
+PickUp Merlin Sword
+
+// Happy Path: Correct Pickup
+PickUp Conan Sword
+PickUp Merlin Wand
+PickUp Garrett Dagger
+
+// ==========================================
+// 4. DUPLICATE EQUIPMENT & UPGRADES [cite: 80-83]
+// ==========================================
+
+// Move Conan to Armory where we will place two swords
+Move Conan North
+
+// Place a "Trash Sword" (Weak stats)
+Place Sword Armory 0 1 1 
+// Place a "God Sword" (Strong stats)
+Place Sword Armory 0 50 50
+
+// Edge Case: Downgrade Attempt
+// Conan already has a Sword (from Start: +10 Str). 
+// He tries to pick up Trash Sword (+1 Str).
+// Rule: Keep item with higher stats. Should NOT equip Trash Sword.
+PickUp Conan Sword
+
+// Happy Path: Upgrade
+// Conan tries to pick up God Sword (+50 Str).
+// Rule: Total stats are higher. Should EQUIP God Sword.
+PickUp Conan Sword
+
+// ==========================================
+// 5. POTIONS [cite: 17, 18]
+// ==========================================
+
+// Place potions in Library
+Place Health Potion Library 0 0 0
+Place Strength Potion Library 0 0 0
+
+// Move Merlin to Library
+Move Merlin East
+
+// Happy Path: Drink Potions
+// Should apply immediately and NOT go to inventory
+PickUp Merlin Health Potion
+PickUp Merlin Strength Potion
+
+// ==========================================
+// 6. COMBAT & MONSTERS
+// ==========================================
+
+// Setup Monsters
+// Weak Rat in Library
+Place Monster Rat Library 10 1 0
+// Strong Dragon in BossLair
+Place Monster Dragon BossLair 200 50 20
+
+// Happy Path: Victory
+// Merlin fights Rat. Merlin (High Str) should win easily.
+Fight Merlin Rat
+
+// Edge Case: Item not in room
+// Rat should be dead/removed? (PDF implies monsters die). 
+// If we try to fight again, or pick up a non-existent item:
+PickUp Merlin NonExistentItem
+
+// Edge Case: Defeat (Player Dies)
+// Move Garrett (Thief) to BossLair to die
+Move Garrett North
+Move Garrett North
+Fight Garrett Dragon
+// Garrett should lose and game over for him [cite: 68]

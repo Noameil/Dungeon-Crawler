@@ -30,14 +30,13 @@ class Game
 private:
     Dungeon dungeon;
     List<Character *> players;
-    Room *currentRoom;
     std::ifstream inputFile;
     std::ofstream outputFile;
 
 public:
     Game() {};
     ~Game() {}
-    void move(Directions whereToMove);
+    void move(Character *player, Directions whereToMove);
     void loadFromFile(std::string fileName);
     void executeCommands();
     void outputFinalState(std::string fileOutputName);
@@ -54,9 +53,4 @@ public:
     void handlePlaceMonster(std::stringstream &ss);
     void handlePlaceItem(std::string arg2, std::stringstream &ss);
     Character *findPlayer(std::string name);
-
-    inline Room *getCurrentRoom()
-    {
-        return currentRoom;
-    }
 };

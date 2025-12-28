@@ -14,11 +14,19 @@ bool Thief::pickUp(Item *itemToAdd)
     case DAGGER:
     {
         int NewTotalStats = itemToAdd->getItemDefenseBonus() + itemToAdd->getItemHealthBonus() + itemToAdd->getItemStrengthBonus();
-        int CurrTotalStats = getTotalWeaponStats();
-        if (NewTotalStats > CurrTotalStats)
+        if (getFirstItem() == nullptr)
         {
-            Character::swapWeapon(itemToAdd);
+            insertWeaponToInventory(itemToAdd);
         }
+        else
+        {
+            int CurrTotalStats = getTotalWeaponStats();
+            if (NewTotalStats > CurrTotalStats)
+            {
+                Character::swapWeapon(itemToAdd);
+            }
+        }
+        std::cout << getCharacterName() << " has picked up the " << itemToAdd->getName() << std::endl;
         return true;
         break;
     }
@@ -29,7 +37,10 @@ bool Thief::pickUp(Item *itemToAdd)
         break;
     }
     default:
+    {
+        std::cout << getCharacterName() << " can't pick up the " << itemToAdd->getName() << std::endl;
         return false;
         break;
+    }
     }
 }

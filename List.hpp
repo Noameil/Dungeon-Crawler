@@ -160,6 +160,7 @@ inline void List<T>::remove(T data)
     {
         if (this->head->data == data)
         {
+            delete head->data;
             delete this->head;
             this->head = nullptr;
             this->tail = this->head;
@@ -170,17 +171,39 @@ inline void List<T>::remove(T data)
     {
         Node *temp = this->head;
         this->head = this->head->next;
-        this->head->prev = nullptr;
+        if (this->head)
+            this->head->prev = nullptr;
+        else
+            this->tail = nullptr;
+
+        delete temp->data;
         delete temp;
         return;
+
+        // Node *temp = this->head;
+        // this->head = this->head->next;
+        // this->head->prev = nullptr;
+        // delete temp;
+        // return;
     }
     if (this->tail->data == data)
     {
         Node *temp = this->tail;
         this->tail = this->tail->prev;
-        this->tail->next = nullptr;
+        if (this->tail)
+            this->tail->next = nullptr;
+        else
+            this->head = nullptr;
+
+        delete temp->data;
         delete temp;
         return;
+
+        // Node *temp = this->tail;
+        // this->tail = this->tail->prev;
+        // this->tail->next = nullptr;
+        // delete temp;
+        // return;
     }
     Node *curr = this->head;
     while (curr)
@@ -189,9 +212,17 @@ inline void List<T>::remove(T data)
         {
             Node *temp = curr;
             curr->prev->next = curr->next;
-            temp->next->prev = temp->prev;
+            curr->next->prev = curr->prev;
+
+            delete temp->data;
             delete temp;
             return;
+
+            // Node *temp = curr;
+            // curr->prev->next = curr->next;
+            // temp->next->prev = temp->prev;
+            // delete temp;
+            // return;
         }
         curr = curr->next;
     }

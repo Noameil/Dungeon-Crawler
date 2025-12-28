@@ -5,12 +5,14 @@
 #include <string>
 #include "Monster.hpp"
 #include "Item.hpp"
+#include "Room.hpp"
 
 // class Monster;
 
 class Character
 {
 private:
+    Room *currentRoom;
     std::string name;
     int health;
     int strength;
@@ -32,6 +34,8 @@ public:
     // Getters / Setters
     inline virtual std::string getCharacterName() const { return name; }
     // inline virtual void setCharacterName(std::string newName) {}
+    inline virtual Room *getCurrentRoom() const { return currentRoom; }
+    inline virtual void setCurrentRoom(Room *roomToEnter) { currentRoom = roomToEnter; }
     inline virtual int getCharacterHealth() const { return health; }
     inline virtual void setCharacterHealth(int newHealth) { health = newHealth; }
     inline virtual void addCharacterHealth(int amount) { health += amount; }

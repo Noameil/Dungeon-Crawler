@@ -17,11 +17,11 @@ Monster::Monster(std::string name, int health, int strength, int defense)
     {
         throw std::invalid_argument("Error : Monster Health must be at least 1");
     }
-    if (strength <= 0)
+    if (strength < 0)
     {
         throw std::invalid_argument("Error : Monster Strength must be at least 0");
     }
-    if (defense <= 0)
+    if (defense < 0)
     {
         throw std::invalid_argument("Error : Monster Defense must be at least 0");
     }

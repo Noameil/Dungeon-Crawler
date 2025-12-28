@@ -1,3 +1,4 @@
-Thorin final stats: Health 110 Strength: 35 Defense: 20
+Conan final stats: Health 100 Strength: 35 Defense: 15
 Sword: 0/20/5
-Shield: 0/0/5
+Merlin final stats: Health 50 Strength: 45 Defense: 5
+Wand: 0/20/0

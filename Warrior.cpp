@@ -37,6 +37,7 @@ bool Warrior::pickUp(Item *itemToAdd)
                 Character::swapWeapon(itemToAdd);
             }
         }
+        std::cout << getCharacterName() << " has picked up the " << itemToAdd->getName() << std::endl;
         return true;
         break;
     }
@@ -46,7 +47,7 @@ bool Warrior::pickUp(Item *itemToAdd)
         if (getSecondItem() == nullptr)
         {
             insertShieldToInventory(itemToAdd);
-        } 
+        }
         else
         {
             int CurrTotalStats = getTotalShieldStats();
@@ -55,6 +56,7 @@ bool Warrior::pickUp(Item *itemToAdd)
                 Character::swapShield(itemToAdd);
             }
         }
+        std::cout << getCharacterName() << " has picked up the " << itemToAdd->getName() << std::endl;
         return true;
         break;
     }
@@ -66,7 +68,10 @@ bool Warrior::pickUp(Item *itemToAdd)
     }
 
     default:
+    {
+        std::cout << getCharacterName() << " can't pick up the " << itemToAdd->getName() << std::endl;
         return false;
         break;
+    }
     }
 }
