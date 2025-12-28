@@ -37,6 +37,7 @@ public:
         while (curr)
         {
             temp = curr->next;
+            delete curr->data;
             delete curr;
             curr = temp;
         }

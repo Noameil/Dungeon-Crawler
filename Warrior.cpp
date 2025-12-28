@@ -25,10 +25,17 @@ bool Warrior::pickUp(Item *itemToAdd)
     case SWORD:
     {
         int NewTotalStats = itemToAdd->getItemDefenseBonus() + itemToAdd->getItemHealthBonus() + itemToAdd->getItemStrengthBonus();
-        int CurrTotalStats = getTotalWeaponStats();
-        if (NewTotalStats > CurrTotalStats)
+        if (getFirstItem() == nullptr)
         {
-            Character::swapWeapon(itemToAdd);
+            insertWeaponToInventory(itemToAdd);
+        }
+        else
+        {
+            int CurrTotalStats = getTotalWeaponStats();
+            if (NewTotalStats > CurrTotalStats)
+            {
+                Character::swapWeapon(itemToAdd);
+            }
         }
         return true;
         break;
@@ -36,10 +43,17 @@ bool Warrior::pickUp(Item *itemToAdd)
     case SHIELD:
     {
         int NewTotalStats = itemToAdd->getItemDefenseBonus() + itemToAdd->getItemHealthBonus() + itemToAdd->getItemStrengthBonus();
-        int CurrTotalStats = getTotalShieldStats();
-        if (NewTotalStats > CurrTotalStats)
+        if (getSecondItem() == nullptr)
         {
-            Character::swapShield(itemToAdd);
+            insertShieldToInventory(itemToAdd);
+        } 
+        else
+        {
+            int CurrTotalStats = getTotalShieldStats();
+            if (NewTotalStats > CurrTotalStats)
+            {
+                Character::swapShield(itemToAdd);
+            }
         }
         return true;
         break;

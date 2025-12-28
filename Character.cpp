@@ -23,6 +23,8 @@ Character::Character(std::string name, int health, int strength, int defense)
     {
         throw std::invalid_argument("Error : Character Defense must be at least 0");
     }
+    inventory[0] = nullptr;
+    inventory[1] = nullptr;
 }
 
 Character::~Character() {}
@@ -38,9 +40,6 @@ void Character::swapWeapon(Item *itemToAdd)
     strength -= getWeaponBonusStrength();
     defense -= getWeaponBonusDefense();
     insertWeaponToInventory(itemToAdd);
-    health += getWeaponBonusHealth();
-    strength += getWeaponBonusStrength();
-    defense += getWeaponBonusDefense();
 }
 void Character::swapShield(Item *itemToAdd)
 {
@@ -48,9 +47,6 @@ void Character::swapShield(Item *itemToAdd)
     strength -= getShieldBonusStrength();
     defense -= getShieldBonusDefense();
     insertShieldToInventory(itemToAdd);
-    health += getShieldBonusHealth();
-    strength += getShieldBonusStrength();
-    defense += getShieldBonusDefense();
 }
 
 bool Character::isAlive() const

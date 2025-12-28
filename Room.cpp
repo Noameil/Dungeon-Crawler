@@ -15,18 +15,19 @@ Room::Room(std::string name)
 
 Room::~Room()
 {
-    if (!itemList.isEmpty())
-        delete &itemList;
-    if (this->monster)
+    // if (!itemList.isEmpty())
+    //     delete &itemList;
+    if (this->monster){
         delete this->monster;
-    if (this->north)
-        delete this->north;
-    if (this->south)
-        delete this->south;
-    if (this->east)
-        delete this->east;
-    if (this->west)
-        delete this->west;
+        monster = nullptr;}
+    // if (this->north)
+    //     delete this->north;
+    // if (this->south)
+    //     delete this->south;
+    // if (this->east)
+    //     delete this->east;
+    // if (this->west)
+    //     delete this->west;
 }
 
 Item *Room::findItem(ItemType itemToFind)

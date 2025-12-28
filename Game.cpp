@@ -110,7 +110,7 @@ void Game::outputFinalState(std::string fileOutputName)
     int health = player->getCharacterHealth();
     Item *item1 = player->getFirstItem();
     Item *item2 = player->getSecondItem();
-    outputFile << player->getCharacterName() << "final stats: Health " << player->getCharacterHealth() << " Strength: " << player->getCharacterStrength() << " Defense: " << player->getCharacterDefense() << endl;
+    outputFile << player->getCharacterName() << " final stats: Health " << player->getCharacterHealth() << " Strength: " << player->getCharacterStrength() << " Defense: " << player->getCharacterDefense() << endl;
     if (item1 && item2)
     {
         outputFile << item1->getName() << ": " << item1->getItemHealthBonus() << "/" << item1->getItemStrengthBonus() << "/" << item1->getItemDefenseBonus() << endl;

@@ -1,2 +1,3 @@
-Thorinfinal stats: Health 110 Strength: 15 Defense: 10
-Thorin had no items (and still won eze gever nishba)!
+Thorin final stats: Health 110 Strength: 25 Defense: 20
+Sword: 0/10/5
+Shield: 0/0/5
