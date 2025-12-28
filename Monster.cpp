@@ -29,7 +29,7 @@ Monster::Monster(std::string name, int health, int strength, int defense)
 
 void Monster::attack(Character &target)
 {
-    target.setCharacterHealth(target.getCharacterHealth() - (this->strength - target.getCharacterDefense()));
+    target.setCharacterHealth(target.getCharacterHealth() - std::max((this->strength - target.getCharacterDefense()), 1));
 }
 
 bool Monster::isDefeated() const

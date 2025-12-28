@@ -1,3 +1,3 @@
-Thorin final stats: Health 110 Strength: 25 Defense: 20
-Sword: 0/10/5
+Thorin final stats: Health 100 Strength: 35 Defense: 20
+Sword: 0/20/5
 Shield: 0/0/5

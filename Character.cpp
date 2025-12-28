@@ -3,6 +3,8 @@
 
 #include <stdexcept>
 #include "Character.hpp"
+#include <algorithm>
+#include <iostream>
 
 Character::Character(std::string name, int health, int strength, int defense)
     : name(name), health(health), strength(strength), defense(defense)
@@ -31,7 +33,7 @@ Character::~Character() {}
 
 void Character::attack(Monster &target)
 {
-    target.setMonsterHealth(target.getMonsterHealth() - (this->strength - target.getMonsterDefense()));
+    target.setMonsterHealth(target.getMonsterHealth() - std::max((this->strength - target.getMonsterDefense()), 1));
 }
 
 void Character::swapWeapon(Item *itemToAdd)

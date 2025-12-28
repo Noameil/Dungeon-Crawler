@@ -14,14 +14,18 @@ Connect Entrance Hallway North
 Connect Hallway TreasureRoom East
 
 // Place items and monsters in specific rooms
-Place Sword Entrance 0 0 0 // Sword in Entrance, +5 Strength
+// Place Health Potion Entrance 0 0 0  
+Place Sword Entrance 0 10 0 // Sword in Entrance
 Place Monster Goblin Hallway 30 5 2 // Goblin in Hallway, 30 Health, 5 Strength, 2 Defense
 Place Shield TreasureRoom 0 0 0 // Shield in TreasureRoom, +5 Defense
+Place Sword Hallway 0 5 0 // Sword in Hallway +5 Strength
 
 // Character actions: entering the dungeon, moving, fighting, and picking up items
 Enter Dungeon Thorin // Thorin starts his adventure
 PickUp Thorin Sword // Thorin picks up the Sword
+PickUp Thorin Health Potion 
 Move Thorin North // Thorin moves to the Hallway
 Fight Thorin Goblin // Thorin fights the Goblin in the Hallway
+PickUp Thorin Sword // Thorin picks up a better Sword
 Move Thorin East // Thorin moves to the TreasureRoom
 PickUp Thorin Shield // Thorin picks up the Shield
