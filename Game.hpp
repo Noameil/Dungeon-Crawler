@@ -17,6 +17,7 @@
 #include "Warrior.hpp"
 #include "Thief.hpp"
 #include "Mage.hpp"
+#include "List.hpp"
 
 typedef enum FightResult_E
 {
@@ -28,19 +29,19 @@ class Game
 {
 private:
     Dungeon dungeon;
-    Character *player;
+    List<Character *> players;
     Room *currentRoom;
     std::ifstream inputFile;
     std::ofstream outputFile;
 
 public:
     Game() {};
-    ~Game() { delete player; }
+    ~Game() {}
     void move(Directions whereToMove);
     void loadFromFile(std::string fileName);
     void executeCommands();
     void outputFinalState(std::string fileOutputName);
-    FightResult fight(Monster &foulBeing);
+    FightResult fight(Character *player, Monster *foulBeing);
 
     void handleCreate(std::stringstream &ss);
     void handleSet(std::stringstream &ss);
@@ -52,7 +53,7 @@ public:
     void handlePickUp(std::stringstream &ss);
     void handlePlaceMonster(std::stringstream &ss);
     void handlePlaceItem(std::string arg2, std::stringstream &ss);
-    void handlePotion(std::string arg2, std::stringstream &ss);
+    Character *findPlayer(std::string name);
 
     inline Room *getCurrentRoom()
     {

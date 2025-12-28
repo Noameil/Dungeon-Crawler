@@ -29,13 +29,11 @@ void Dungeon::createRoom(std::string name)
 
 void Dungeon::matchPairDirections(Room *baseRoom, Room *roomToConnect, Directions whereToConnect)
 {
-    std::cout << "matchPairDirections" << baseRoom->getName() << roomToConnect->getName() << whereToConnect << std::endl;
     switch (whereToConnect)
     {
     case NORTH:
         baseRoom->connectNorth(roomToConnect);
         roomToConnect->connectSouth(baseRoom);
-        std::cout << baseRoom->getConnectedRoom(NORTH)->getName() << std::endl;
         break;
 
     case SOUTH:

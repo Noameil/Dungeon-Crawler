@@ -14,7 +14,7 @@ Connect Entrance Hallway North
 Connect Hallway TreasureRoom East
 
 // Place items and monsters in specific rooms
-// Place Health Potion Entrance 0 0 0  
+Place Health Potion Entrance 0 0 0  
 Place Sword Entrance 0 10 0 // Sword in Entrance
 Place Monster Goblin Hallway 30 5 2 // Goblin in Hallway, 30 Health, 5 Strength, 2 Defense
 Place Shield TreasureRoom 0 0 0 // Shield in TreasureRoom, +5 Defense

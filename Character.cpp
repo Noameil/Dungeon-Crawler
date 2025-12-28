@@ -36,21 +36,6 @@ void Character::attack(Monster &target)
     target.setMonsterHealth(target.getMonsterHealth() - std::max((this->strength - target.getMonsterDefense()), 1));
 }
 
-void Character::swapWeapon(Item *itemToAdd)
-{
-    health -= getWeaponBonusHealth();
-    strength -= getWeaponBonusStrength();
-    defense -= getWeaponBonusDefense();
-    insertWeaponToInventory(itemToAdd);
-}
-void Character::swapShield(Item *itemToAdd)
-{
-    health -= getShieldBonusHealth();
-    strength -= getShieldBonusStrength();
-    defense -= getShieldBonusDefense();
-    insertShieldToInventory(itemToAdd);
-}
-
 bool Character::isAlive() const
 {
     return this->health > 0 ? true : false;

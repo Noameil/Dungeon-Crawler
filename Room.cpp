@@ -5,7 +5,7 @@
 #include "Room.hpp"
 
 Room::Room(std::string name)
-    : name(name), monster(nullptr), north(nullptr), south(nullptr), east(nullptr), west(nullptr)
+    : name(name), north(nullptr), south(nullptr), east(nullptr), west(nullptr)
 {
     if (name.empty())
     {
@@ -17,9 +17,6 @@ Room::~Room()
 {
     // if (!itemList.isEmpty())
     //     delete &itemList;
-    if (this->monster){
-        delete this->monster;
-        monster = nullptr;}
     // if (this->north)
     //     delete this->north;
     // if (this->south)
@@ -32,24 +29,32 @@ Room::~Room()
 
 Item *Room::findItem(ItemType itemToFind)
 {
-    std::cout << "Trying ro find Item findItem" << itemToFind << std::endl;
     List<Item *>::Node *temp = itemList.head;
     while (temp)
     {
         if (temp->data)
         {
-            std::cout << temp->data->getItemType() << std::endl;
             if (temp->data->getItemType() == itemToFind)
             {
                 return temp->data;
             }
         }
-        else
+        temp = temp->next;
+    }
+    return nullptr;
+}
+
+Monster *Room::findMonster(std::string name)
+{
+    List<Monster *>::Node *temp = monsters.head;
+    while (temp)
+    {
+        if (temp->data->getMonsterName() == name)
         {
-            std::cout << "temp->data is null" << std::endl;
+            return temp->data;
         }
         temp = temp->next;
     }
-    std::cout << "got to null?????" << std::endl;
+    std::cout << "Error : Monster not found" << std::endl;
     return nullptr;
 }
