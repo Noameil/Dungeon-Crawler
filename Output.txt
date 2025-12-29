@@ -1,4 +1,30 @@
-Conan final stats: Health 100 Strength: 35 Defense: 15
-Sword: 0/20/5
-Merlin final stats: Health 50 Strength: 45 Defense: 5
-Wand: 0/20/0
+Warrior1 final stats: Health 100 Strength: 35 Defense: 20
+Sword: 0/20/10
+Mage1 final stats: Health 40 Strength: 50 Defense: 5
+Wand: 0/25/0
+Thief1 final stats: Health 60 Strength: 20 Defense: 7
+Thief1 had no items (and still won eze gever nishba)!
+Warrior2 final stats: Health 100 Strength: 15 Defense: 10
+Warrior2 had no items (and still won eze gever nishba)!
+Warrior1 final stats: Health 100 Strength: 15 Defense: 10
+Warrior1 had no items (and still won eze gever nishba)!
+Warrior3 final stats: Health 100 Strength: 15 Defense: 10
+Warrior3 had no items (and still won eze gever nishba)!
+Mage3 final stats: Health 40 Strength: 25 Defense: 5
+Mage3 had no items (and still won eze gever nishba)!
+Thief2 final stats: Health 60 Strength: 20 Defense: 7
+Thief2 had no items (and still won eze gever nishba)!
+Warrior4 final stats: Health 100 Strength: 15 Defense: 10
+Warrior4 had no items (and still won eze gever nishba)!
+Mage4 final stats: Health 40 Strength: 25 Defense: 5
+Mage4 had no items (and still won eze gever nishba)!
+Thief3 final stats: Health 60 Strength: 20 Defense: 7
+Thief3 had no items (and still won eze gever nishba)!
+Warrior5 final stats: Health 100 Strength: 15 Defense: 10
+Warrior5 had no items (and still won eze gever nishba)!
+Warrior1 final stats: Health 100 Strength: 15 Defense: 10
+Warrior1 had no items (and still won eze gever nishba)!
+VeryLongCharacterNameThatMightCauseIssuesButProbablyNot final stats: Health 100 Strength: 15 Defense: 10
+VeryLongCharacterNameThatMightCauseIssuesButProbablyNot had no items (and still won eze gever nishba)!
+Garrett final stats: Health 60 Strength: 20 Defense: 7
+Garrett had no items (and still won eze gever nishba)!

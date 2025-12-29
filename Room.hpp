@@ -35,6 +35,8 @@ public:
 
     Item *findItem(ItemType itemToFind);
 
+    inline virtual void removeItemFromList(Item* itemToRemove) {itemList.remove(itemToRemove);}
+
     // Getters / Setters
     inline std::string getName() const
     {
@@ -48,9 +50,9 @@ public:
     {
         itemList.insertEnd(item);
     }
-    inline List<Item *> getItems()
+    inline List<Item *>& getItems()
     {
-        return this->itemList;
+        return itemList;
     }
     inline void placeMonster(Monster *monster)
     {

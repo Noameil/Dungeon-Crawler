@@ -6,12 +6,7 @@
 #include "Warrior.hpp"
 #include "Item.hpp"
 
-// Warrior::Warrior()
-// {
-//     setCharacterHealth(100);
-//     setCharacterDefense(10);
-//     setCharacterStrength(15);
-// }
+
 
 bool Warrior::pickUp(Item *itemToAdd)
 {
@@ -24,21 +19,27 @@ bool Warrior::pickUp(Item *itemToAdd)
     {
     case SWORD:
     {
-        int NewTotalStats = itemToAdd->getItemDefenseBonus() + itemToAdd->getItemHealthBonus() + itemToAdd->getItemStrengthBonus();
+        int NewTotalStats = itemToAdd->getTotalStats();
         if (getFirstItem() == nullptr)
         {
             insertWeaponToInventory(itemToAdd);
+            std::cout << getCharacterName() << " has picked up the " << itemToAdd->displayStats() << itemToAdd->getName() << std::endl;
+            return true;
         }
         else
         {
             int CurrTotalStats = getTotalWeaponStats();
             if (NewTotalStats > CurrTotalStats)
             {
-                Character::swapWeapon(itemToAdd);
+                Item* oldWeapon = Character::swapWeapon(itemToAdd);
+                std::cout << getCharacterName() << " has picked up the " << itemToAdd->displayStats() << itemToAdd->getName() << std::endl;
+                std::cout << "The old " << itemToAdd->displayStats() << itemToAdd->getName() << " was destroyed when dropped" << std::endl;
+                delete oldWeapon;
+                return true;
             }
         }
-        std::cout << getCharacterName() << " has picked up the " << itemToAdd->getName() << std::endl;
-        return true;
+        std::cout << getCharacterName() << " has not picked up the " << itemToAdd->displayStats() << itemToAdd->getName() << " because the equiped one is better" << std::endl;
+        return false;
         break;
     }
     case SHIELD:
@@ -47,17 +48,23 @@ bool Warrior::pickUp(Item *itemToAdd)
         if (getSecondItem() == nullptr)
         {
             insertShieldToInventory(itemToAdd);
+            std::cout << getCharacterName() << " has picked up the " << itemToAdd->displayStats() << itemToAdd->getName() << std::endl;
+            return true;
         }
         else
         {
             int CurrTotalStats = getTotalShieldStats();
             if (NewTotalStats > CurrTotalStats)
             {
-                Character::swapShield(itemToAdd);
+                Item* oldShield = Character::swapShield(itemToAdd);
+                std::cout << getCharacterName() << " has picked up the " << itemToAdd->displayStats() << itemToAdd->getName() << std::endl;
+                std::cout << "The old " << itemToAdd->displayStats() << itemToAdd->getName() << " was destroyed when dropped" << std::endl;
+                delete oldShield;
+                return true;
             }
         }
-        std::cout << getCharacterName() << " has picked up the " << itemToAdd->getName() << std::endl;
-        return true;
+        std::cout << getCharacterName() << " has not picked up the " << itemToAdd->displayStats() << itemToAdd->getName() << " because the equiped one is better" << std::endl;
+        return false;
         break;
     }
     case POTION:

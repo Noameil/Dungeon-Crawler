@@ -1,0 +1,82 @@
+Error : Trying to place an invalid item
+Error : Trying to place an invalid item
+Error : Trying to place an invalid item
+Error : Start room could not be found
+Error : Invalid direction
+Error : Invalid line input
+Error : Invalid stats for monster
+Error : Player not found
+Error : No existing player to enter the dungeon
+Error : Invalid direction to move to
+Warrior1 has entered the dungeon
+Warrior1 has moved North to the RoomNorth
+Error : Monster not found
+Error : No sword in the room
+Error : Invalid command
+Error : Trying to place an invalid item
+Error : Player not found
+Error : Trying to place an invalid item
+Error : Trying to place an invalid item
+Error : Trying to place an invalid item
+Error : Invalid stats for monster
+Error : Invalid stats for monster
+Error : Invalid stats for monster
+Error : Invalid direction
+Error : Invalid direction
+Error : Invalid direction
+Error : Start room could not be found
+Error : Player not found
+Error : No existing player to enter the dungeon
+Warrior1 has entered the dungeon
+Warrior1 has entered the dungeon
+Error : Player not found
+Error : No existing player to move
+Error : Invalid direction to move to
+Warrior1 has moved South to the StartRoom
+Error : Player not found
+Error : Monster not found
+Error : Monster not found
+Error : Player not found
+Error : Invalid player to pick up item
+Error : Invalid item to pick up
+Warrior1 is trying to pick up Sword
+Warrior1 has picked up the 0 20 10 Sword
+Warrior1 is trying to pick up Dagger
+Warrior1 can't pick up the Dagger
+Error : No wand in the room
+Warrior1 has entered the dungeon
+Error : No sword in the room
+Warrior1 is trying to pick up Wand
+Warrior1 can't pick up the Wand
+Mage1 has entered the dungeon
+Error : No room connected in this direction
+Mage1 is trying to pick up Wand
+Mage1 has picked up the 0 25 0 Wand
+Error : No sword in the room
+Thief1 has entered the dungeon
+Thief1 has moved East to the ExtraRoom1
+Error : No dagger in the room
+Error : No sword in the room
+Warrior1 has moved East to the ExtraRoom1
+Error : No dagger in the room
+Error : No sword in the room
+Error : No sword in the room
+Warrior1 has moved South to the ExtraRoom2
+Error : No shield in the room
+Error : No sword in the room
+Warrior1 has moved West to the ExtraRoom3
+Error : Invalid item to pick up
+Error : Monster not found
+Warrior2 has entered the dungeon
+Error : Monster not found
+Mage2 has entered the dungeon
+Error : No room connected in this direction
+Mage2 was defeated by Orc
+Error : Player not found
+Error : Invalid player to pick up item
+Error : No such room was found
+Error : Player not found
+Error : Invalid player to pick up item
+Garrett has entered the dungeon
+Error : No room connected in this direction
+Error : No sword in the room

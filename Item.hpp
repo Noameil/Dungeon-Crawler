@@ -10,7 +10,10 @@ typedef enum ItemType_e
     WAND,
     DAGGER,
     SHIELD,
-    POTION
+    POTION,
+    POTIONHP,
+    POTIONSTR,
+    POTIONDEF,
 } ItemType;
 
 class Item
@@ -27,8 +30,10 @@ public:
     virtual ~Item() = 0;
 
     // Getters / Setters
+    inline virtual void setItemType(ItemType type) {itemType = type;}
     inline virtual ItemType getItemType() { return this->itemType; }
     inline virtual int getItemHealthBonus() const { return this->healthBonus; }
+    inline virtual int getTotalStats() {return healthBonus + strengthBonus + defenseBonus;}
     // inline virtual void setItemHealthBonus(int newHealth) {}
     inline virtual void addItemHealthBonus(int addHealth) { healthBonus += addHealth; }
     inline virtual int getItemStrengthBonus() const { return this->strengthBonus; }
@@ -38,4 +43,6 @@ public:
     // inline virtual void setItemDefenseBonus(int newDefense) {}
     inline virtual void addItemDefenseBonus(int addDefense) { defenseBonus += addDefense; }
     inline virtual std::string getName() = 0;
+
+    inline virtual std::string displayStats() {return std::to_string(healthBonus) + " " + std::to_string(strengthBonus) + " " + std::to_string(defenseBonus) + " ";}
 };

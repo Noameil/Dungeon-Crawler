@@ -26,14 +26,17 @@ public:
 
         if (type == "Strength")
         {
+            setItemType(POTIONSTR);
             potionType = STRENGTHP;
         }
         else if (type == "Health")
         {
+            setItemType(POTIONHP);
             potionType = HEALTHP;
         }
         else if (type == "Defense")
         {
+            setItemType(POTIONDEF);
             potionType = DEFENSEP;
         }
 

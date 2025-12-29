@@ -1,10 +1,10 @@
 // Create the main character with initial stats
 Create Warrior Thorin
 Create Mage Alex
-Create Thief Noam
+create Thief Noam
 
 // Define the rooms of the dungeon
-Create Room Entrance
+create Room Entrance
 Create Room Hallway
 Create Room TreasureRoom
 
@@ -16,9 +16,9 @@ Connect Entrance Hallway North
 Connect Hallway TreasureRoom East
 
 // Place items and monsters in specific rooms
-Place Health Potion Entrance 0 0 0  
+place Health Potion Entrance 0 0 0  
 Place Wand Hallway 0 0 0
-Place Dagger Entrance 0 0 0
+PlACe Dagger Entrance 0 0 0
 Place Sword Entrance 0 10 0 // Sword in Entrance
 Place Monster Goblin Hallway 30 5 2 // Goblin in Hallway, 30 Health, 5 Strength, 2 Defense
 Place Shield TreasureRoom 0 0 0 // Shield in TreasureRoom, +5 Defense

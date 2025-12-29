@@ -42,6 +42,8 @@ public:
     void outputFinalState(std::string fileOutputName);
     FightResult fight(Character *player, Monster *foulBeing);
 
+    void capitalize(std::string &str);
+
     void handleCreate(std::stringstream &ss);
     void handleSet(std::stringstream &ss);
     void handleConnect(std::stringstream &ss);

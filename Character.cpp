@@ -29,8 +29,6 @@ Character::Character(std::string name, int health, int strength, int defense)
     inventory[1] = nullptr;
 }
 
-Character::~Character() {}
-
 void Character::attack(Monster &target)
 {
     target.setMonsterHealth(target.getMonsterHealth() - std::max((this->strength - target.getMonsterDefense()), 1));

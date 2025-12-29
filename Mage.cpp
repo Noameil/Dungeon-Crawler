@@ -13,21 +13,27 @@ bool Mage::pickUp(Item *itemToAdd)
     {
     case WAND:
     {
-        int NewTotalStats = itemToAdd->getItemDefenseBonus() + itemToAdd->getItemHealthBonus() + itemToAdd->getItemStrengthBonus();
+        int NewTotalStats = itemToAdd->getTotalStats();
         if (getFirstItem() == nullptr)
         {
             insertWeaponToInventory(itemToAdd);
+            std::cout << getCharacterName() << " has picked up the " << itemToAdd->displayStats() << itemToAdd->getName() << std::endl;
+            return true;
         }
         else
         {
             int CurrTotalStats = getTotalWeaponStats();
             if (NewTotalStats > CurrTotalStats)
             {
-                Character::swapWeapon(itemToAdd);
+                Item* oldWeapon = Character::swapWeapon(itemToAdd);
+                std::cout << getCharacterName() << " has picked up the " << itemToAdd->displayStats() << itemToAdd->getName() << std::endl;
+                std::cout << "The old " << itemToAdd->displayStats() << itemToAdd->getName() << " was destroyed when dropped" << std::endl;
+                delete oldWeapon;
+                return true;
             }
         }
-        std::cout << getCharacterName() << " has picked up the " << itemToAdd->getName() << std::endl;
-        return true;
+        std::cout << getCharacterName() << " has not picked up the " << itemToAdd->displayStats() << itemToAdd->getName() << " because the equiped item is better" << std::endl;
+        return false;
         break;
     }
     case POTION:

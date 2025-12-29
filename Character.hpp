@@ -12,7 +12,7 @@
 class Character
 {
 private:
-    Room *currentRoom;
+    Room *currentRoom = nullptr;
     std::string name;
     int health;
     int strength;
@@ -23,17 +23,27 @@ public:
     // Constructors / Destructor
     Character() {}
     Character(std::string name, int health, int strength, int defense);
-    virtual ~Character() = 0; // Delete inventory?
+    ~Character()
+    {
+        if (inventory[0])
+        {
+            delete inventory[0]; // Delete Weapon
+            inventory[0] = nullptr;
+        }
+        if (inventory[1])
+        {
+            delete inventory[1]; // Delete Shield
+            inventory[1] = nullptr;
+        }
+    }
 
     // Main Functions
     virtual void attack(Monster &target);
-    // virtual void defend(int damage);
     virtual bool isAlive() const;
     virtual bool pickUp(Item *item) = 0;
 
     // Getters / Setters
     inline virtual std::string getCharacterName() const { return name; }
-    // inline virtual void setCharacterName(std::string newName) {}
     inline virtual Room *getCurrentRoom() const { return currentRoom; }
     inline virtual void setCurrentRoom(Room *roomToEnter) { currentRoom = roomToEnter; }
     inline virtual int getCharacterHealth() const { return health; }
@@ -123,19 +133,23 @@ public:
         strength += getShieldBonusStrength();
         defense += getShieldBonusDefense();
     }
-    inline virtual void swapWeapon(Item *itemToAdd)
+    inline virtual Item *swapWeapon(Item *itemToAdd)
     {
+        Item *temp = inventory[0];
         health -= getWeaponBonusHealth();
         strength -= getWeaponBonusStrength();
         defense -= getWeaponBonusDefense();
         insertWeaponToInventory(itemToAdd);
+        return temp;
     }
-    inline virtual void swapShield(Item *itemToAdd)
+    inline virtual Item *swapShield(Item *itemToAdd)
     {
+        Item *temp = inventory[1];
         health -= getShieldBonusHealth();
         strength -= getShieldBonusStrength();
         defense -= getShieldBonusDefense();
         insertShieldToInventory(itemToAdd);
+        return temp;
     }
     inline virtual Item *getFirstItem() { return inventory[0]; }
     inline virtual Item *getSecondItem() { return inventory[1]; }
@@ -145,8 +159,7 @@ public:
         health += potion->getItemHealthBonus();
         defense += potion->getItemDefenseBonus();
         strength += potion->getItemStrengthBonus();
+        currentRoom->removeItemFromList(potion);
     }
 
-    // Operators
-    // virtual Character operator+(const Item &item);
 };

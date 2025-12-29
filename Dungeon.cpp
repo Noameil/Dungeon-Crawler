@@ -74,7 +74,7 @@ Room *Dungeon::findRoom(std::string name)
     while (temp)
     {
         if (temp->data->getName() == name)
-        { // Maybe strcmp
+        { 
             return temp->data;
         }
         temp = temp->next;

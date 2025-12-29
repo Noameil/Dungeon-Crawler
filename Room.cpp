@@ -15,20 +15,11 @@ Room::Room(std::string name)
 
 Room::~Room()
 {
-    // if (!itemList.isEmpty())
-    //     delete &itemList;
-    // if (this->north)
-    //     delete this->north;
-    // if (this->south)
-    //     delete this->south;
-    // if (this->east)
-    //     delete this->east;
-    // if (this->west)
-    //     delete this->west;
 }
 
 Item *Room::findItem(ItemType itemToFind)
 {
+    Item *currentBest = nullptr;
     List<Item *>::Node *temp = itemList.head;
     while (temp)
     {
@@ -36,12 +27,22 @@ Item *Room::findItem(ItemType itemToFind)
         {
             if (temp->data->getItemType() == itemToFind)
             {
-                return temp->data;
+                if (!currentBest)
+                {
+                    currentBest = temp->data;
+                }
+                else
+                {
+                    if (currentBest->getTotalStats()<temp->data->getTotalStats())
+                    {
+                        currentBest = temp->data;
+                    }
+                }
             }
         }
         temp = temp->next;
     }
-    return nullptr;
+    return currentBest;
 }
 
 Monster *Room::findMonster(std::string name)

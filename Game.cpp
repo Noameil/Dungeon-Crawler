@@ -1,9 +1,28 @@
+// Noam Eilat : 322713025
+// Amit Lachmann : 207448267
+
 #include "Game.hpp"
+#include <climits>
 
 using namespace std;
 
+void Game::capitalize(string &str)
+{
+    if (!str.empty())
+    {
+        str[0] = toupper(str[0]);
+
+        for (std::size_t i = 1; i < str.length(); ++i)
+            str[i] = std::tolower(str[i]);
+    }
+}
 void Game::move(Character *player, Directions whereToMove)
 {
+    if (!player->getCurrentRoom())
+    {
+        return;
+    }
+    
     Room *newRoom = player->getCurrentRoom()->getConnectedRoom(whereToMove);
     if (newRoom)
     {
@@ -41,6 +60,7 @@ void Game::executeCommands()
         streamString >> arg;
         if (arg == "" || arg == " ")
             continue;
+        capitalize(arg);
         if (arg == "Create")
         {
             try
@@ -104,17 +124,9 @@ void Game::executeCommands()
         {
             handleFight(streamString);
         }
-        else if (arg == "PickUp")
+        else if (arg == "Pickup")
         {
-            try
-            {
-                handlePickUp(streamString);
-            }
-            catch (exception &e)
-            {
-                cout << e.what() << endl;
-                continue;
-            }
+            handlePickUp(streamString);
         }
         else
         {
@@ -327,6 +339,10 @@ void Game::handleMove(stringstream &ss)
         cout << "Error : Invalid direction to move to" << endl;
         return;
     }
+    if (!player->getCurrentRoom())
+    {
+        return;
+    }
     if (player->getCurrentRoom()->getConnectedRoom(whereToMove))
     {
         move(player, whereToMove);
@@ -346,6 +362,10 @@ void Game::handleFight(stringstream &ss)
     ss >> arg3;
     Character *fightingPlayer = findPlayer(arg2);
     if (!fightingPlayer)
+    {
+        return;
+    }
+    if (!fightingPlayer->getCurrentRoom())
     {
         return;
     }
@@ -376,13 +396,21 @@ void Game::handlePickUp(stringstream &ss)
         cout << "Error : Invalid player to pick up item" << endl;
         return;
     }
+    if (!player->getCurrentRoom())
+    {
+        return;
+    }
     if (arg3 == "Sword")
     {
         Item *itemToPickUp = player->getCurrentRoom()->findItem(SWORD);
         if (itemToPickUp)
         {
             cout << player->getCharacterName() << " is trying to pick up " << itemToPickUp->getName() << endl;
-            player->pickUp(itemToPickUp);
+            bool result = player->pickUp(itemToPickUp);
+            if(result)
+            {
+                player->getCurrentRoom()->getItems().deleteNode(itemToPickUp);
+            }
         }
         else
         {
@@ -396,7 +424,11 @@ void Game::handlePickUp(stringstream &ss)
         if (itemToPickUp)
         {
             cout << player->getCharacterName() << " is trying to pick up " << itemToPickUp->getName() << endl;
-            player->pickUp(itemToPickUp);
+            bool result = player->pickUp(itemToPickUp);
+            if(result)
+            {
+                player->getCurrentRoom()->getItems().deleteNode(itemToPickUp);
+            }
         }
         else
         {
@@ -410,7 +442,11 @@ void Game::handlePickUp(stringstream &ss)
         if (itemToPickUp)
         {
             cout << player->getCharacterName() << " is trying to pick up " << itemToPickUp->getName() << endl;
-            player->pickUp(itemToPickUp);
+            bool result = player->pickUp(itemToPickUp);
+            if(result)
+            {
+                player->getCurrentRoom()->getItems().deleteNode(itemToPickUp);
+            }
         }
         else
         {
@@ -424,7 +460,11 @@ void Game::handlePickUp(stringstream &ss)
         if (itemToPickUp)
         {
             cout << player->getCharacterName() << " is trying to pick up " << itemToPickUp->getName() << endl;
-            player->pickUp(itemToPickUp);
+            bool result = player->pickUp(itemToPickUp);
+            if(result)
+            {
+                player->getCurrentRoom()->getItems().deleteNode(itemToPickUp);
+            }
         }
         else
         {
@@ -443,7 +483,7 @@ void Game::handlePickUp(stringstream &ss)
         }
         if (arg3 == "Health")
         {
-            Item *itemToPickUp = player->getCurrentRoom()->findItem(POTION);
+            Item *itemToPickUp = player->getCurrentRoom()->findItem(POTIONHP);
             if (!itemToPickUp)
             {
                 cout << "Error : No potion in the room" << endl;
@@ -457,13 +497,13 @@ void Game::handlePickUp(stringstream &ss)
                     cout << "Error : No such potion in the room" << endl;
                     return;
                 }
-                player->drinkPotion(itemToPickUp);
                 cout << player->getCharacterName() << " is drinking the " << itemToPickUp->getName() << endl;
+                player->drinkPotion(itemToPickUp);   
             }
         }
         else if (arg3 == "Strength")
         {
-            Item *itemToPickUp = player->getCurrentRoom()->findItem(POTION);
+            Item *itemToPickUp = player->getCurrentRoom()->findItem(POTIONSTR);
             if (!itemToPickUp)
             {
                 cout << "Error : No potion in the room" << endl;
@@ -477,13 +517,13 @@ void Game::handlePickUp(stringstream &ss)
                     cout << "Error : No such potion in the room" << endl;
                     return;
                 }
-                player->drinkPotion(itemToPickUp);
                 cout << player->getCharacterName() << " is drinking the " << itemToPickUp->getName() << endl;
+                player->drinkPotion(itemToPickUp);
             }
         }
         else if (arg3 == "Defense")
         {
-            Item *itemToPickUp = player->getCurrentRoom()->findItem(POTION);
+            Item *itemToPickUp = player->getCurrentRoom()->findItem(POTIONDEF);
             if (!itemToPickUp)
             {
                 cout << "Error : No potion in the room" << endl;
@@ -497,8 +537,8 @@ void Game::handlePickUp(stringstream &ss)
                     cout << "Error : No such potion in the room" << endl;
                     return;
                 }
-                player->drinkPotion(itemToPickUp);
                 cout << player->getCharacterName() << " is drinking the " << itemToPickUp->getName() << endl;
+                player->drinkPotion(itemToPickUp);
             }
         }
     }
@@ -512,7 +552,7 @@ void Game::handlePickUp(stringstream &ss)
 void Game::handlePlaceMonster(stringstream &ss)
 {
     string arg3, arg4;
-    int arg5, arg6, arg7;
+    int arg5 = -1, arg6 = -1, arg7 = -1;
     ss >> arg3;
     ss >> arg4;
     ss >> arg5;
@@ -542,13 +582,17 @@ void Game::handlePlaceMonster(stringstream &ss)
 void Game::handlePlaceItem(string arg2, stringstream &ss)
 {
     string arg3;
-    int arg4, arg5, arg6;
+    int arg4 = INT_MIN, arg5 = INT_MIN, arg6 = INT_MIN;
     if (arg2 == "Sword")
     {
         ss >> arg3;
         ss >> arg4;
         ss >> arg5;
         ss >> arg6;
+        if (arg4 == INT_MIN || arg5 == INT_MIN || arg6 == INT_MIN)
+        {
+            cout << "Error : Invalid line input" << endl;
+        } 
         Room *roomToPlace = dungeon.findRoom(arg3);
         if (!roomToPlace)
         {
@@ -564,6 +608,10 @@ void Game::handlePlaceItem(string arg2, stringstream &ss)
         ss >> arg4;
         ss >> arg5;
         ss >> arg6;
+        if (arg4 == INT_MIN || arg5 == INT_MIN || arg6 == INT_MIN)
+        {
+            cout << "Error : Invalid line input" << endl;
+        }
         Room *roomToPlace = dungeon.findRoom(arg3);
         if (!roomToPlace)
         {
@@ -579,6 +627,10 @@ void Game::handlePlaceItem(string arg2, stringstream &ss)
         ss >> arg4;
         ss >> arg5;
         ss >> arg6;
+        if (arg4 == INT_MIN || arg5 == INT_MIN || arg6 == INT_MIN)
+        {
+            cout << "Error : Invalid line input" << endl;
+        }
         Room *roomToPlace = dungeon.findRoom(arg3);
         if (!roomToPlace)
         {
@@ -594,6 +646,10 @@ void Game::handlePlaceItem(string arg2, stringstream &ss)
         ss >> arg4;
         ss >> arg5;
         ss >> arg6;
+        if (arg4 == INT_MIN || arg5 == INT_MIN || arg6 == INT_MIN)
+        {
+            cout << "Error : Invalid line input" << endl;
+        }
         Room *roomToPlace = dungeon.findRoom(arg3);
         if (!roomToPlace)
         {
@@ -612,6 +668,10 @@ void Game::handlePlaceItem(string arg2, stringstream &ss)
         ss >> arg5;
         ss >> arg6;
         ss >> arg7;
+        if (arg7 == INT_MIN || arg5 == INT_MIN || arg6 == INT_MIN)
+        {
+            cout << "Error : Invalid line input" << endl;
+        }
         Room *roomToPlace = dungeon.findRoom(arg4);
         if (!roomToPlace)
         {

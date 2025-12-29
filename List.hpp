@@ -18,6 +18,9 @@ public:
     Node *head;
     Node *tail;
 
+    List(const List&) = delete;           
+    List& operator=(const List&) = delete;
+
     List()
     {
         try
@@ -49,6 +52,7 @@ public:
     void insertStart(T data);
     void insertAfterNode(T currData, T newData);
     void remove(T data);
+    void deleteNode(T data);
     Node *search(T data);
     bool isEmpty();
     int size();
@@ -180,11 +184,6 @@ inline void List<T>::remove(T data)
         delete temp;
         return;
 
-        // Node *temp = this->head;
-        // this->head = this->head->next;
-        // this->head->prev = nullptr;
-        // delete temp;
-        // return;
     }
     if (this->tail->data == data)
     {
@@ -199,11 +198,6 @@ inline void List<T>::remove(T data)
         delete temp;
         return;
 
-        // Node *temp = this->tail;
-        // this->tail = this->tail->prev;
-        // this->tail->next = nullptr;
-        // delete temp;
-        // return;
     }
     Node *curr = this->head;
     while (curr)
@@ -218,11 +212,60 @@ inline void List<T>::remove(T data)
             delete temp;
             return;
 
-            // Node *temp = curr;
-            // curr->prev->next = curr->next;
-            // temp->next->prev = temp->prev;
-            // delete temp;
-            // return;
+        }
+        curr = curr->next;
+    }
+}
+
+template <class T>
+inline void List<T>::deleteNode(T data)
+{
+    if (!head->data)
+    {
+        return;
+    }
+    if (this->head == this->tail)
+    {
+        if (this->head->data == data)
+        {
+            delete this->head;
+            this->head = nullptr;
+            this->tail = this->head;
+            return;
+        }
+    }
+    if (this->head->data == data)
+    {
+        Node *temp = this->head;
+        this->head = this->head->next;
+        if (this->head)
+            this->head->prev = nullptr;
+        else
+            this->tail = nullptr;
+        delete temp;
+        return;
+    }
+    if (this->tail->data == data)
+    {
+        Node *temp = this->tail;
+        this->tail = this->tail->prev;
+        if (this->tail)
+            this->tail->next = nullptr;
+        else
+            this->head = nullptr;
+        delete temp;
+        return;
+    }
+    Node *curr = this->head;
+    while (curr)
+    {
+        if (curr->data == data)
+        {
+            Node *temp = curr;
+            curr->prev->next = curr->next;
+            curr->next->prev = curr->prev;
+            delete temp;
+            return;
         }
         curr = curr->next;
     }
